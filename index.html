@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cotizador Tishman</title>
+  <title>Cotizador</title>
   <style>
     :root { --b:#e5e7eb; --t:#111827; --m:#6b7280; }
     *{ box-sizing:border-box; }
@@ -19,33 +19,35 @@
     button{ padding:10px 12px; border-radius:12px; border:1px solid var(--b); background:#111827; color:#fff; font-weight:700; cursor:pointer; }
     button.secondary{ background:#fff; color:#111827; }
     button:active{ transform:scale(.99); }
-    .hr{ height:1px; background:var(--b); margin:12px 0; }
-    table{ width:100%; border-collapse:collapse; }
-    th, td{ border-bottom:1px solid var(--b); padding:10px 6px; font-size:13px; text-align:left; vertical-align:top; }
-    th{ color:var(--m); font-weight:800; font-size:12px; }
-    .right{ text-align:right; }
-    .muted{ color:var(--m); }
-    .pill{ display:inline-block; padding:4px 10px; border:1px solid var(--b); border-radius:999px; font-size:12px; color:var(--m); }
-    .totals{ margin-top:10px; display:grid; gap:6px; }
-    .totals .line{ display:flex; justify-content:space-between; font-size:13px; }
-    .totals .grand{ font-size:16px; font-weight:900; }
-    .quoteHeader{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
-    .brand{ font-weight:900; font-size:18px; display:flex; align-items:center; gap:10px; }
-    .brand img{ height:28px; width:auto; }
     .small{ font-size:12px; color:var(--m); }
-    .danger{ color:#b91c1c; font-size:12px; margin-top:8px; }
-    @media (max-width: 980px){ .wrap{ grid-template-columns:1fr; } }
+    .danger{ font-size:12px; color:#b91c1c; margin-top:8px; }
+    .quoteHeader{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .brand img{ height:70px; width:auto; display:block; }
+    .hr{ height:1px; background:var(--b); margin:10px 0; }
+    table{ width:100%; border-collapse:collapse; }
+    th, td{ border-bottom:1px solid var(--b); padding:10px 8px; font-size:13px; vertical-align:middle; }
+    th{ text-align:left; color:var(--m); font-weight:700; }
+    td.right, th.right{ text-align:right; }
+    .totals{ margin-top:10px; display:grid; gap:6px; }
+    .line{ display:flex; justify-content:space-between; gap:10px; }
+    .line.grand{ font-size:18px; font-weight:900; }
+    .muted{ color:var(--m); }
+    .no-print{ }
     @media print{
       body{ background:#fff; }
+      .wrap{ grid-template-columns: 1fr; }
+      .card:first-child{ display:none; }
       .no-print{ display:none !important; }
-      .wrap{ max-width:100%; margin:0; padding:0; grid-template-columns:1fr; }
-      .card{ border:none; box-shadow:none; border-radius:0; padding:0; }
+      button{ display:none !important; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card no-print">
+
+    <!-- Panel izquierdo -->
+    <div class="card">
       <h1>Cotizador</h1>
       <h2>Captura códigos, cantidades y genera PDF</h2>
 
@@ -53,7 +55,10 @@
         <div>
           <label>Lista del cliente</label>
           <select id="priceList">
-            <option value="4">Lista 4</option>
+            <option value="1">Lista 1</option>
+            <option value="2">Lista 2</option>
+            <option value="3">Lista 3</option>
+            <option value="4" selected>Lista 4</option>
             <option value="5">Lista 5</option>
             <option value="6">Lista 6</option>
           </select>
@@ -61,8 +66,9 @@
         <div>
           <label>IVA</label>
           <select id="vatMode">
-            <option value="16">16%</option>
-            <option value="0">0% (sin IVA)</option>
+            <option value="0">0%</option>
+            <option value="8">8%</option>
+            <option value="16" selected>16%</option>
           </select>
         </div>
       </div>
@@ -76,7 +82,7 @@
       <div class="row">
         <div>
           <label>Tipo de cambio (USD→MXN)</label>
-          <input id="fx" type="number" min="0" step="0.0001" value="18.77" />
+          <input id="fx" type="number" step="0.01" value="18.77" />
         </div>
         <div>
           <label>Vigencia</label>
@@ -107,14 +113,17 @@
       <div class="small" style="margin-top:10px;">Tip: Imprimir → Guardar como PDF</div>
     </div>
 
+    <!-- Cotización -->
     <div class="card">
       <div class="quoteHeader">
         <div>
           <div class="brand">
-            <img src="Logo%20Tishman%20Color-SF.png" alt="Logo" style="height:70px" onerror="this.style.display='none'">
+            <!-- Logo: soporta tu nombre con espacios -->
+            <img src="Logo%20Tishman%20Color-SF.png" alt="Logo" onerror="this.style.display='none'">
           </div>
           <div class="small">Cotización</div>
         </div>
+
         <div style="text-align:right">
           <div class="small" style="margin-top:6px;">Fecha: <span id="today"></span></div>
           <div class="small">Vigencia: <span id="validityOut">7 días</span></div>
@@ -174,55 +183,55 @@
         <button id="printBtn">Imprimir / Guardar PDF</button>
       </div>
     </div>
+
   </div>
 
   <script src="catalog.js"></script>
   <script>
-    const CATALOG = window.CATALOG || {};
     const $ = (id) => document.getElementById(id);
 
     const state = {
       list: "4",
       vat: 16,
       fx: 18.77,
-      discountType: "none",
-      discountPct: 0,
+      validity: "7 días",
       client: "",
       seller: "",
-      validity: "7 días",
-      lines: [{ code:"", qty: 1 }],
+      discountType: "none",
+      discountPct: 0,
+      lines: [{ code: "", qty: 1 }]
     };
 
-    const money = (n) => (isFinite(n) ? n : 0).toLocaleString("es-MX", { style:"currency", currency:"MXN" });
-    const moneyUsd = (n) => (isFinite(n) ? n : 0).toLocaleString("en-US", { style:"currency", currency:"USD" });
+    function money(n){ return "$" + Number(n||0).toFixed(2); }
+    function moneyUsd(n){ return "$" + Number(n||0).toFixed(2); }
 
     function showWarning(msg){
-      const w = $("warning");
-      if (!msg){ w.style.display="none"; w.textContent=""; return; }
-      w.style.display="block"; w.textContent=msg;
+      const el = $("warning");
+      el.style.display = msg ? "block" : "none";
+      el.textContent = msg || "";
     }
 
-    // Precio: SIEMPRE prioriza precioE si existe; si no, usa lista 4/5/6 del cliente.
     function priceFor(code, list){
       const item = CATALOG[code];
-      if (!item) return null;
-
-      if (item.priceE !== null && item.priceE !== undefined && item.priceE !== ""){
-        return item.priceE;
-      }
+      if(!item) return null;
+      if (list === "1") return item.price1 ?? null;
+      if (list === "2") return item.price2 ?? null;
+      if (list === "3") return item.price3 ?? null;
       if (list === "4") return item.price4 ?? null;
       if (list === "5") return item.price5 ?? null;
       if (list === "6") return item.price6 ?? null;
       return null;
     }
+
     function descFor(code){ return CATALOG[code]?.desc ?? ""; }
 
-    function render(){  // --- Mantener foco al re-render ---
-  const ae = document.activeElement;
-  const focusInfo = (ae && ae.dataset && ae.dataset.field && ae.dataset.idx)
-    ? { field: ae.dataset.field, idx: ae.dataset.idx, start: ae.selectionStart, end: ae.selectionEnd }
-    : null;
-      $("listBadge").textContent = state.list;
+    function render(){
+      // --- Guardar foco antes de re-render (para que NO te saque del input) ---
+      const ae = document.activeElement;
+      const focusInfo = (ae && ae.dataset && ae.dataset.field && ae.dataset.idx)
+        ? { field: ae.dataset.field, idx: ae.dataset.idx, start: ae.selectionStart, end: ae.selectionEnd }
+        : null;
+
       $("today").textContent = new Date().toLocaleDateString("es-MX");
       $("validityOut").textContent = state.validity || "—";
       $("clientOut").textContent = state.client?.trim() || "—";
@@ -233,16 +242,17 @@
       const tbody = $("lines");
       tbody.innerHTML = "";
 
-      let missing = [];
       let subUsd = 0;
+      const missing = [];
 
-      state.lines.forEach((ln, idx) => {
-        const code = String(ln.code||"").trim().toUpperCase();
-        const qty = Math.max(0, Number(ln.qty||0));
+      state.lines.forEach((line, idx) => {
+        const code = String(line.code||"").trim();
+        const qty = Number(line.qty||0);
 
         const item = CATALOG[code];
         const price = priceFor(code, state.list);
         const desc = descFor(code);
+
         if (!code || !item) missing.push(code || "(vacío)");
         if (item && (price === null || price === undefined)) missing.push(code + " (sin precio)");
 
@@ -251,23 +261,33 @@
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td><input data-field="code" data-idx="${idx}" value="${escapeHtml(code)}" placeholder="Código" oninput="onCode(${idx}, this.value)" /></td>
+          <td>
+            <input data-field="code" data-idx="${idx}"
+              value="${escapeHtml(code)}" placeholder="Código"
+              oninput="onCode(${idx}, this.value)" />
+          </td>
           <td class="muted">${escapeHtml(desc || "—")}</td>
           <td class="right">${price == null ? "—" : moneyUsd(price)}</td>
-          <td class="right"><input data-field="qty" data-idx="${idx}" type="number" min="0" step="1" value="${qty}" oninput="onQty(${idx}, this.value)" /></td>
+          <td class="right">
+            <input data-field="qty" data-idx="${idx}"
+              type="number" min="0" step="1"
+              value="${qty}"
+              oninput="onQty(${idx}, this.value)" />
+          </td>
           <td class="right">${moneyUsd(lineSub)}</td>
-          <td class="right no-print"><button class="secondary" onclick="removeLine(${idx})" style="padding:6px 10px; font-weight:800;">X</button></td>
+          <td class="right no-print">
+            <button class="secondary" onclick="removeLine(${idx})" style="padding:6px 10px; font-weight:800;">X</button>
+          </td>
         `;
         tbody.appendChild(tr);
       });
 
-      let discPct = 0;
-      if (state.discountType === "percent") discPct = clamp(Number(state.discountPct||0), 0, 100);
-      const totalUsd = subUsd * (1 - discPct/100);
+      const discPct = clamp(Number(state.discountPct||0), 0, 100);
+      const totalUsd = state.discountType === "percent" ? (subUsd * (1 - discPct/100)) : subUsd;
 
       const fx = Math.max(0, Number(state.fx||0));
       const subMxn = totalUsd * fx;
-      const iva = subMxn * (state.vat/100);
+      const iva = subMxn * (Number(state.vat||0)/100);
       const totalMxn = subMxn + iva;
 
       $("subUsd").textContent = moneyUsd(subUsd);
@@ -279,18 +299,17 @@
 
       const uniq = [...new Set(missing.filter(Boolean))];
       showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
-        // --- Regresar foco después de re-render ---
-  if (focusInfo) {
-    const el = document.querySelector(
-      `input[data-field="${focusInfo.field}"][data-idx="${focusInfo.idx}"]`
-    );
-    if (el) {
-      el.focus();
-      if (focusInfo.start != null && focusInfo.end != null && el.setSelectionRange) {
-        el.setSelectionRange(focusInfo.start, focusInfo.end);
+
+      // --- Regresar foco después de re-render ---
+      if (focusInfo) {
+        const el = document.querySelector(`input[data-field="${focusInfo.field}"][data-idx="${focusInfo.idx}"]`);
+        if (el) {
+          el.focus();
+          if (focusInfo.start != null && focusInfo.end != null && el.setSelectionRange) {
+            el.setSelectionRange(focusInfo.start, focusInfo.end);
+          }
+        }
       }
-    }
-  }
     }
 
     function clamp(n,a,b){ return Math.max(a, Math.min(b,n)); }
