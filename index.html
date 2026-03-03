@@ -219,7 +219,11 @@
     }
     function descFor(code){ return CATALOG[code]?.desc ?? ""; }
 
-    function render(){
+    function render(){  // --- Mantener foco al re-render ---
+  const ae = document.activeElement;
+  const focusInfo = (ae && ae.dataset && ae.dataset.field && ae.dataset.idx)
+    ? { field: ae.dataset.field, idx: ae.dataset.idx, start: ae.selectionStart, end: ae.selectionEnd }
+    : null;
       $("listBadge").textContent = state.list;
       $("today").textContent = new Date().toLocaleDateString("es-MX");
       $("validityOut").textContent = state.validity || "—";
@@ -249,10 +253,10 @@
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td><input value="${escapeHtml(code)}" placeholder="Código" oninput="onCode(${idx}, this.value)" /></td>
+          <td><input data-field="code" data-idx="${idx}" value="${escapeHtml(code)}" placeholder="Código" oninput="onCode(${idx}, this.value)" /></td>
           <td class="muted">${escapeHtml(desc || "—")}</td>
           <td class="right">${price == null ? "—" : moneyUsd(price)}</td>
-          <td class="right"><input type="number" min="0" step="1" value="${qty}" oninput="onQty(${idx}, this.value)" /></td>
+          <td class="right"><input data-field="qty" data-idx="${idx}" type="number" min="0" step="1" value="${qty}" oninput="onQty(${idx}, this.value)" /></td>
           <td class="right">${moneyUsd(lineSub)}</td>
           <td class="right no-print"><button class="secondary" onclick="removeLine(${idx})" style="padding:6px 10px; font-weight:800;">X</button></td>
         `;
