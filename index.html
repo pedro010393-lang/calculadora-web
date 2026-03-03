@@ -281,6 +281,18 @@
 
       const uniq = [...new Set(missing.filter(Boolean))];
       showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
+        // --- Regresar foco después de re-render ---
+  if (focusInfo) {
+    const el = document.querySelector(
+      `input[data-field="${focusInfo.field}"][data-idx="${focusInfo.idx}"]`
+    );
+    if (el) {
+      el.focus();
+      if (focusInfo.start != null && focusInfo.end != null && el.setSelectionRange) {
+        el.setSelectionRange(focusInfo.start, focusInfo.end);
+      }
+    }
+  }
     }
 
     function clamp(n,a,b){ return Math.max(a, Math.min(b,n)); }
