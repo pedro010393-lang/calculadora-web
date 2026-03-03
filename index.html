@@ -155,8 +155,8 @@ const item = CATALOG[code];
 if(!item) return null;
 
 /* 🔥 PRIORIDAD PRECIO ESPECIAL */
-if(item.specialPrice != null && item.specialPrice !== "")
-return Number(item.specialPrice);
+if(item.priceE != null && item.priceE !== "")
+return Number(item.priceE);
 
 /* Lista seleccionada */
 if(list==="4") return item.price4 ?? null;
