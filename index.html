@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora</title>
+  <style>
+    body { font-family: -apple-system, system-ui, Arial; display:flex; justify-content:center; padding:24px; }
+    .card { width: 320px; border:1px solid #ddd; border-radius:16px; padding:16px; box-shadow: 0 6px 20px rgba(0,0,0,.06); }
+    input { width:100%; font-size:24px; padding:12px; text-align:right; border-radius:12px; border:1px solid #ddd; }
+    .grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; margin-top:12px; }
+    button { font-size:18px; padding:14px 0; border-radius:12px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+    button:active { transform: scale(.98); }
+    .wide { grid-column: span 2; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <input id="display" value="0" readonly />
+
+    <div class="grid">
+      <button onclick="press('C')">C</button>
+      <button onclick="press('⌫')">⌫</button>
+      <button onclick="press('(')">(</button>
+      <button onclick="press(')')">)</button>
+
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button onclick="press('/')">÷</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button onclick="press('*')">×</button>
+
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button onclick="press('-')">−</button>
+
+      <button onclick="press('0')" class="wide">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="press('+')">+</button>
+
+      <button onclick="press('=')" class="wide">=</button>
+    </div>
+  </div>
+
+  <script>
+    let expr = "";
+    const display = document.getElementById("display");
+
+    function setDisplay(val) {
+      display.value = val === "" ? "0" : val;
+    }
+
+    function press(key) {
+      if (key === "C") { expr = ""; setDisplay(expr); return; }
+      if (key === "⌫") { expr = expr.slice(0, -1); setDisplay(expr); return; }
+
+      if (key === "=") {
+        if (!expr.trim()) return;
+        try {
+          if (!/^[0-9+\-*/().\s]+$/.test(expr)) throw new Error("Entrada inválida");
+          const result = Function('"use strict"; return (' + expr + ')')();
+          expr = String(result);
+          setDisplay(expr);
+        } catch (e) {
+          expr = "";
+          setDisplay("Error");
+        }
+        return;
+      }
+
+      expr += key;
+      setDisplay(expr);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      const k = e.key;
+      if ("0123456789.+-*/()".includes(k)) press(k);
+      if (k === "Enter") press("=");
+      if (k === "Backspace") press("⌫");
+      if (k === "Escape") press("C");
+    });
+  </script>
+</body>
+</html>
