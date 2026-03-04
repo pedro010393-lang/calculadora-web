@@ -466,14 +466,23 @@
       showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
     }
 
-    window.onCode = (idx, val) => { state.lines[idx].code = String(val||""); render(); };
 
     // Live: no render (no brinca cursor)
     window.onQtyLive = (idx, val) => { state.lines[idx].qty = Number(val || 0); quickTotals(); };
 
     // Final: render al salir
     window.onQty  = (idx, val) => { state.lines[idx].qty = Number(val || 0); render(); };
+// escritura fluida del código
+window.onCodeLive = (idx, val) => {
+  state.lines[idx].code = String(val || "");
+  quickTotals();
+};
 
+// render completo al salir del campo
+window.onCode = (idx, val) => {
+  state.lines[idx].code = String(val || "");
+  render();
+};
     function render(){
       // Asegura consecutivo
       if (!state.quoteNo) state.quoteNo = formatQuoteNo(nextQuoteNo());
@@ -517,7 +526,9 @@
         tr.innerHTML = `
           <td>
             <input data-field="code" data-idx="${idx}" value="${escapeHtml(rawCode)}"
-              placeholder="Código" oninput="onCode(${idx}, this.value)" />
+placeholder="Código"
+oninput="onCodeLive(${idx}, this.value)"
+onblur="onCode(${idx}, this.value)" />
           </td>
           <td class="muted">${escapeHtml(desc || "—")}</td>
           <td class="right">${price == null ? "—" : moneyUsd(price)}</td>
