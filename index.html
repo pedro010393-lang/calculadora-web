@@ -4,254 +4,386 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cotizador Tishman</title>
+
   <style>
-    :root { --b:#e5e7eb; --t:#111827; --m:#6b7280; --w:#ffffff; }
+    :root{
+      --b:#e5e7eb;
+      --t:#111827;
+      --m:#6b7280;
+      --bg:#f7f7f8;
+      --card:#ffffff;
+      --shadow: 0 6px 20px rgba(0,0,0,.06);
+      --radius:16px;
+    }
     *{ box-sizing:border-box; }
-    body{ margin:0; font-family:-apple-system,system-ui,Arial; background:#f7f7f8; color:var(--t); }
-    .wrap{ max-width:1200px; margin:0 auto; padding:18px; }
-    .grid{ display:grid; grid-template-columns: 420px 1fr; gap:14px; }
-    .card{ background:var(--w); border:1px solid var(--b); border-radius:16px; padding:14px; box-shadow:0 6px 20px rgba(0,0,0,.05); }
-    h1{ font-size:18px; margin:0 0 8px; }
-    h2{ font-size:13px; margin:0 0 12px; color:var(--m); font-weight:600; }
-    label{ font-size:12px; color:var(--m); display:block; margin:10px 0 6px; }
+    body{
+      margin:0;
+      font-family:-apple-system, system-ui, Segoe UI, Roboto, Arial;
+      background:var(--bg);
+      color:var(--t);
+    }
+
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding:16px;
+      display:grid;
+      grid-template-columns: 420px 1fr;
+      gap:14px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--b);
+      border-radius:var(--radius);
+      padding:14px;
+      box-shadow:var(--shadow);
+    }
+
+    h1{ margin:0 0 6px; font-size:20px; }
+    .sub{ color:var(--m); font-weight:600; margin-bottom:14px; }
+
+    label{ font-size:12px; color:var(--m); display:block; margin:10px 0 6px; font-weight:600; }
     input, select, textarea{
-      width:100%; padding:10px; border-radius:12px; border:1px solid var(--b); font-size:14px;
+      width:100%;
+      padding:10px;
+      border:1px solid var(--b);
+      border-radius:12px;
+      font-size:14px;
       outline:none;
+      background:#fff;
     }
-    textarea{ resize:vertical; min-height:72px; }
+    textarea{ min-height:76px; resize:vertical; }
+
     .row{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    .btns{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+
+    .btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
     button{
-      padding:10px 12px; border-radius:12px; border:1px solid var(--b);
-      background:#111827; color:#fff; font-weight:700; cursor:pointer;
+      border:1px solid var(--b);
+      background:#111827;
+      color:#fff;
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:800;
+      cursor:pointer;
     }
-    button.secondary{ background:#fff; color:#111827; }
+    button.secondary{
+      background:#fff;
+      color:#111827;
+    }
     button:active{ transform:scale(.99); }
 
-    .quoteHeader{ display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
-    .brand{ display:flex; flex-direction:column; gap:6px; }
-    .small{ font-size:12px; color:var(--m); }
-    .pill{ display:inline-block; padding:6px 10px; border:1px solid var(--b); border-radius:999px; font-size:12px; color:var(--t); }
+    .tip{ margin-top:10px; color:var(--m); font-size:12px; }
+
+    /* ======= Cotización (derecha) ======= */
+    .quoteHeader{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:flex-start;
+    }
+    .brand img{
+      height:70px;
+      width:auto;
+      display:block;
+    }
+    .small{ font-size:13px; color:var(--m); font-weight:700; }
     .hr{ height:1px; background:var(--b); margin:12px 0; }
 
-    table{ width:100%; border-collapse:collapse; }
-    th,td{ padding:10px; border-bottom:1px solid var(--b); vertical-align:middle; }
-    th{ text-align:left; font-size:12px; color:var(--m); font-weight:700; }
-    td.right, th.right{ text-align:right; }
-    .muted{ color:var(--m); }
-    .warn{
-      margin-top:10px; padding:10px; border-radius:12px;
-      border:1px solid #fecaca; background:#fef2f2; color:#991b1b; font-weight:700;
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:8px;
     }
-    .no-print{ }
-    .totalsGrid{
-      display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px;
-    }
-    .totBox{
-      border:1px dashed var(--b); border-radius:14px; padding:12px;
-    }
-    .totTitle{ font-size:12px; color:var(--m); font-weight:800; letter-spacing:.04em; }
-    .totRow{ display:flex; justify-content:space-between; margin-top:10px; font-weight:700; }
-    .grand{ font-size:18px; font-weight:900; }
-    .rightTopMeta{
-      text-align:right;
+    th{
+      text-align:left;
       font-size:12px;
       color:var(--m);
-      line-height:1.4;
+      padding:10px 8px;
+      border-bottom:1px solid var(--b);
     }
-    .rightTopMeta b{ color:var(--t); }
+    td{
+      padding:10px 8px;
+      border-bottom:1px solid #f1f5f9;
+      vertical-align:top;
+    }
+    .right{ text-align:right; }
+    .muted{ color:var(--m); font-weight:700; }
+    .pill{
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--b);
+      color:var(--m);
+      font-size:12px;
+      font-weight:800;
+      background:#fff;
+    }
 
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
+    .totalsGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:14px;
     }
-    @media print{
+    .totalsBox{
+      border:1px dashed var(--b);
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+    }
+    .totalsTitle{
+      font-size:12px;
+      color:var(--m);
+      font-weight:900;
+      letter-spacing:.5px;
+      margin-bottom:10px;
+    }
+    .line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin:6px 0;
+    }
+    .grand{
+      margin-top:8px;
+      font-size:20px;
+      font-weight:1000;
+    }
+
+    .warn{
+      margin-top:12px;
+      background:#fff5f5;
+      border:1px solid #fecaca;
+      color:#991b1b;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:800;
+    }
+
+    /* ========= IMPRESIÓN =========
+       - Ocultar captura (izquierda)
+       - Imprimir SOLO cotización (derecha)
+       - Ocultar botones/alertas
+    */
+    @media print {
       body{ background:#fff; }
-      .wrap{ padding:0; }
-      .grid{ grid-template-columns: 1fr; }
+      .wrap{ grid-template-columns: 1fr; padding:0; margin:0; }
+      .captureCol{ display:none !important; }
       .no-print{ display:none !important; }
-      .card{ box-shadow:none; }
+      .card{ box-shadow:none; border:none; border-radius:0; padding:0; }
+      .quoteCol{ padding:0; margin:0; }
+      .totalsBox{ border:1px solid #e5e7eb; }
     }
   </style>
+
+  <!-- TU CATÁLOGO -->
+  <script src="catalog.js"></script>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="grid">
-      <!-- PANEL IZQUIERDO -->
-      <div class="card">
-        <h1>Cotizador</h1>
-        <h2>Captura códigos, cantidades y genera PDF</h2>
+    <!-- ============ IZQUIERDA: CAPTURA (NO IMPRIME) ============ -->
+    <div class="card captureCol">
+      <h1>Cotizador</h1>
+      <div class="sub">Captura códigos, cantidades y genera PDF</div>
 
-        <div class="row">
-          <div>
-            <label>Lista del cliente</label>
-            <select id="priceList">
-              <option value="4">Lista 4</option>
-              <option value="5">Lista 5</option>
-              <option value="6">Lista 6</option>
-            </select>
-          </div>
-          <div>
-            <label>IVA</label>
-            <select id="vatMode">
-              <option value="16">16%</option>
-              <option value="8">8%</option>
-            </select>
-          </div>
+      <div class="row">
+        <div>
+          <label>Lista del cliente</label>
+          <select id="priceList">
+            <option value="4">Lista 4</option>
+            <option value="5">Lista 5</option>
+            <option value="6">Lista 6</option>
+          </select>
         </div>
-
-        <div class="row">
-          <div>
-            <label>Vigencia (días)</label>
-            <select id="validity">
-              <option>1 día</option>
-              <option selected>3 días</option>
-              <option>7 días</option>
-              <option>15 días</option>
-            </select>
-          </div>
-          <div>
-            <label>Tipo de cambio (USD→MXN)</label>
-            <input id="fx" inputmode="decimal" value="18.77" />
-          </div>
+        <div>
+          <label>IVA</label>
+          <select id="vatMode">
+            <option value="16">16%</option>
+            <option value="8">8%</option>
+          </select>
         </div>
-
-        <div class="row">
-          <div>
-            <label>Vendedor</label>
-            <input id="sellerName" placeholder="Nombre del vendedor" />
-          </div>
-          <div>
-            <label>Cliente</label>
-            <input id="clientName" placeholder="Nombre del cliente" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div>
-            <label>Correo</label>
-            <input id="email" placeholder="correo@cliente.com" />
-          </div>
-          <div>
-            <label>Teléfono</label>
-            <input id="phone" placeholder="10 dígitos / +52..." />
-          </div>
-        </div>
-
-        <label>Dirección del cliente</label>
-        <textarea id="clientAddress" placeholder="Calle, número, colonia, ciudad, estado, C.P."></textarea>
-
-        <div class="btns no-print">
-          <button id="addRowBtn">+ Agregar renglón</button>
-          <button id="clearBtn" class="secondary">Limpiar</button>
-        </div>
-
-        <div id="warning" class="warn" style="display:none;"></div>
       </div>
 
-      <!-- PANEL DERECHO (PDF) -->
-      <div class="card">
-        <div class="quoteHeader">
-          <div>
-            <div class="brand">
-              <img src="Logo%20Tishman%20Color-SF.png" alt="Logo" style="height:70px" onerror="this.style.display='none'">
-              <div class="small">Cotización</div>
-            </div>
-          </div>
-
-          <div class="rightTopMeta">
-            <div><b>Fecha:</b> <span id="today"></span></div>
-            <div><b>Dirección empresa:</b><br>
-              Blvd. Manuel Ávila Camacho No. 6A<br>
-              Int. 608, Col. El Parque, C.P. 53398,<br>
-              Naucalpan de Juárez, EDOMEX
-            </div>
-          </div>
+      <div class="row">
+        <div>
+          <label>Vendedor</label>
+          <input id="sellerName" placeholder="Nombre del vendedor" />
         </div>
-
-        <div class="hr"></div>
-
-        <div class="row">
-          <div>
-            <div class="small muted">Cliente</div>
-            <div style="font-weight:900" id="clientOut">—</div>
-          </div>
-          <div>
-            <div class="small muted">Vendedor</div>
-            <div style="font-weight:900" id="sellerOut">—</div>
-          </div>
+        <div>
+          <label>Cliente</label>
+          <input id="clientName" placeholder="Nombre del cliente" />
         </div>
-
-        <div class="row" style="margin-top:10px">
-          <div>
-            <div class="small muted">Correo</div>
-            <div style="font-weight:900" id="emailOut">—</div>
-          </div>
-          <div>
-            <div class="small muted">Teléfono</div>
-            <div style="font-weight:900" id="phoneOut">—</div>
-          </div>
-        </div>
-
-        <div class="row" style="margin-top:10px">
-          <div>
-            <div class="small muted">Dirección del cliente</div>
-            <div id="addrOut" style="font-weight:700">—</div>
-          </div>
-          <div class="rightTopMeta">
-            <div><b>IVA:</b> <span id="ivaPctOut">16%</span></div>
-            <div><b>TC:</b> <span id="fxOut">—</span></div>
-            <div><b>Vigencia:</b> <span id="validityOut">—</span></div>
-          </div>
-        </div>
-
-        <div class="hr"></div>
-
-        <table>
-          <thead>
-            <tr>
-              <th style="width:18%">Código</th>
-              <th>Descripción</th>
-              <th class="right" style="width:14%">Precio (USD)</th>
-              <th class="right" style="width:12%">Cant.</th>
-              <th class="right" style="width:14%">Subtotal (USD)</th>
-              <th class="right no-print" style="width:10%">Quitar</th>
-            </tr>
-          </thead>
-          <tbody id="lines"></tbody>
-        </table>
-
-        <div class="totalsGrid">
-          <div class="totBox">
-            <div class="totTitle">TOTALES USD</div>
-            <div class="totRow"><span class="muted">Subtotal</span><span id="subUsd">$0.00</span></div>
-            <div class="totRow"><span class="muted">Total</span><span id="totalUsd">$0.00</span></div>
-          </div>
-          <div class="totBox">
-            <div class="totTitle">TOTALES MXN</div>
-            <div class="totRow"><span class="muted">Subtotal</span><span id="subMxn">$0.00</span></div>
-            <div class="totRow"><span class="muted">IVA</span><span id="ivaMxn">$0.00</span></div>
-            <div class="totRow grand"><span>Total</span><span id="totalMxn">$0.00</span></div>
-          </div>
-        </div>
-
-        <div class="btns no-print" style="margin-top:14px">
-          <button id="printBtn">Imprimir / Guardar PDF</button>
-        </div>
-
-        <div class="small" style="margin-top:10px">Tip: en Chrome puedes elegir “Guardar como PDF”.</div>
       </div>
+
+      <div class="row">
+        <div>
+          <label>Correo</label>
+          <input id="clientEmail" placeholder="correo@cliente.com" />
+        </div>
+        <div>
+          <label>Teléfono</label>
+          <input id="clientPhone" placeholder="10 dígitos / +52..." />
+        </div>
+      </div>
+
+      <label>Dirección del cliente</label>
+      <textarea id="clientAddress" placeholder="Calle, número, colonia, ciudad, estado, C.P."></textarea>
+
+      <div class="row">
+        <div>
+          <label>Tipo de cambio (USD→MXN)</label>
+          <input id="fx" type="number" step="0.01" min="0" />
+        </div>
+        <div>
+          <label>Vigencia (días)</label>
+          <select id="validity">
+            <option>1 día</option>
+            <option selected>3 días</option>
+            <option>7 días</option>
+            <option>15 días</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button id="addRowBtn" class="secondary">+ Agregar renglón</button>
+        <button id="clearBtn" class="secondary">Limpiar</button>
+        <button id="printBtn">Imprimir / Guardar PDF</button>
+      </div>
+
+      <div class="tip">Nota: si un código tiene precio especial, se usa ese primero.</div>
+
+      <div id="warning" class="warn no-print" style="display:none;"></div>
+    </div>
+
+    <!-- ============ DERECHA: COTIZACIÓN (SÍ IMPRIME) ============ -->
+    <div class="card quoteCol">
+      <div class="quoteHeader">
+        <div class="brand">
+          <img src="Logo Tishman Color-SF.png" alt="Logo" onerror="this.style.display='none'">
+          <div class="small">Cotización</div>
+        </div>
+
+        <div style="text-align:right">
+          <div class="small"><b>Fecha:</b> <span id="today"></span></div>
+          <div class="small"><b>Cotización:</b> <span id="quoteNo"></span></div>
+          <div class="small"><b>Vigencia:</b> <span id="validityOut">—</span></div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="row">
+        <div>
+          <div class="small muted">Cliente</div>
+          <div style="font-weight:900" id="clientOut">—</div>
+        </div>
+        <div>
+          <div class="small muted">Vendedor</div>
+          <div style="font-weight:900" id="sellerOut">—</div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <div>
+          <div class="small muted">Correo</div>
+          <div style="font-weight:900" id="emailOut">—</div>
+        </div>
+        <div>
+          <div class="small muted">Teléfono</div>
+          <div style="font-weight:900" id="phoneOut">—</div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px" class="card" style="box-shadow:none">
+        <div class="small muted"><b>Dirección empresa:</b></div>
+        <div class="small">
+          Blvd. Manuel Ávila Camacho No. 6A<br>
+          Int. 608, Col. El Parque, C.P. 53398,<br>
+          Naucalpan de Juárez, EDOMEX
+        </div>
+      </div>
+
+      <div style="margin-top:10px" class="card" style="box-shadow:none">
+        <div class="small muted"><b>Dirección del cliente:</b> <span id="addrOut">—</span></div>
+      </div>
+
+      <div class="hr"></div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18%">Código</th>
+            <th>Descripción</th>
+            <th class="right" style="width:14%">Precio (USD)</th>
+            <th class="right" style="width:12%">Cant.</th>
+            <th class="right" style="width:16%">Subtotal (USD)</th>
+            <th class="right no-print" style="width:10%">Quitar</th>
+          </tr>
+        </thead>
+        <tbody id="lines"></tbody>
+      </table>
+
+      <div class="totalsGrid">
+        <div class="totalsBox">
+          <div class="totalsTitle">TOTALES USD</div>
+          <div class="line"><span class="muted">Subtotal</span><span id="subUsd">$0.00</span></div>
+          <div class="line"><span class="muted">Total</span><span id="totalUsd">$0.00</span></div>
+        </div>
+
+        <div class="totalsBox">
+          <div class="totalsTitle">TOTALES MXN</div>
+          <div class="line"><span class="muted">Subtotal</span><span id="subMxn">$0.00</span></div>
+          <div class="line"><span class="muted">IVA</span><span id="ivaMxn">$0.00</span></div>
+          <div class="line grand"><span>Total</span><span id="totalMxn">$0.00</span></div>
+          <div class="small" style="margin-top:8px"><b>IVA:</b> <span id="vatOut">—</span> &nbsp; <b>TC:</b> <span id="fxOut">—</span></div>
+        </div>
+      </div>
+
+      <div class="tip no-print">Tip: en Chrome puedes elegir “Guardar como PDF”.</div>
     </div>
   </div>
 
-  <!-- IMPORTANTÍSIMO: carga el catálogo -->
-  <script src="catalog.js"></script>
-
   <script>
+    // Helpers DOM
     const $ = (id) => document.getElementById(id);
 
-    const mxnFmt = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    const usdFmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // Formatos dinero
+    const fmtUsd = new Intl.NumberFormat("en-US", { style:"currency", currency:"USD", minimumFractionDigits:2, maximumFractionDigits:2 });
+    const fmtMxn = new Intl.NumberFormat("es-MX", { style:"currency", currency:"MXN", minimumFractionDigits:2, maximumFractionDigits:2 });
+    const moneyUsd = (n) => fmtUsd.format(Number(n||0));
+    const money    = (n) => fmtMxn.format(Number(n||0));
 
+    // Normalizar códigos: sin espacios, en mayúsculas
+    function normalizeCode(s){
+      return String(s||"").trim().toUpperCase();
+    }
+
+    // === Consecutivo de cotización ===
+    function nextQuoteNo() {
+      const key = "tishman_quote_seq";
+      const last = Number(localStorage.getItem(key) || 0);
+      const next = last + 1;
+      localStorage.setItem(key, String(next));
+      return next;
+    }
+    function formatQuoteNo(n){
+      return "COT-" + String(n).padStart(6, "0");
+    }
+
+    // Estado
     const state = {
       list: "4",
       vat: 16,
@@ -262,110 +394,66 @@
       email: "",
       phone: "",
       address: "",
-      lines: [{ code: "", qty: 1 }],
+      quoteNo: "",
+      lines: [{ code:"", qty:1 }]
     };
 
-    function clamp(n,a,b){ return Math.max(a, Math.min(b,n)); }
-    function escapeHtml(str){
-      return String(str||"").replace(/[&<>"']/g, (m) => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[m]));
-    }
-    function normalizeCode(v){ return String(v||"").trim().toUpperCase(); }
-
-    function money(n){ return mxnFmt.format(Number(n||0)); }
-    function moneyUsd(n){ return usdFmt.format(Number(n||0)); }
+    // Seguridad: si falta catálogo
+    if (!window.CATALOG) window.CATALOG = {};
 
     function descFor(code){
-      const item = (window.CATALOG||{})[code];
-      return item ? (item.desc || "—") : "—";
+      const item = window.CATALOG[code];
+      return item ? (item.desc || "") : "";
     }
 
+    // Precio: usa el de tu catalog.js (ya trae prioridad precio especial)
     function priceFor(code, list){
-      const item = (window.CATALOG||{})[code];
-      if(!item) return null;
+      const item = window.CATALOG[code];
+      if (!item) return null;
 
-      // Prioridad: precio especial
-      if (item.priceE != null && item.priceE !== "") return Number(item.priceE);
+      // Prioridad: precio especial (tu catálogo lo maneja como priceE o specialPrice según versión)
+      const special = (item.priceE ?? item.specialPrice);
+      if (special !== null && special !== undefined && String(special) !== "") return Number(special);
 
-      // Lista seleccionada
-      if(list==="4") return item.price4 ?? null;
-      if(list==="5") return item.price5 ?? null;
-      if(list==="6") return item.price6 ?? null;
-
+      if (list === "4") return item.price4 ?? null;
+      if (list === "5") return item.price5 ?? null;
+      if (list === "6") return item.price6 ?? null;
       return null;
     }
 
     function showWarning(msg){
-      const el = $("warning");
-      if(!msg){ el.style.display="none"; el.textContent=""; return; }
-      el.style.display="block";
-      el.textContent = msg;
+      const box = $("warning");
+      if (!msg) { box.style.display="none"; box.textContent=""; return; }
+      box.style.display="block";
+      box.textContent = msg;
     }
 
-    function render(){
-      // Guardar foco/selección para no “teclear letra por letra”
-      const active = document.activeElement;
-      let focusInfo = null;
-      if (active && active.tagName === "INPUT" && active.dataset && active.dataset.field) {
-        focusInfo = {
-          field: active.dataset.field,
-          idx: active.dataset.idx,
-          start: active.selectionStart,
-          end: active.selectionEnd
-        };
-      }
+    function removeLine(idx){
+      state.lines.splice(idx,1);
+      if (!state.lines.length) state.lines.push({code:"", qty:1});
+      render();
+    }
+    window.removeLine = removeLine;
 
-      $("today").textContent = new Date().toLocaleDateString("es-MX");
-      $("clientOut").textContent = state.client ? state.client : "—";
-      $("sellerOut").textContent = state.seller ? state.seller : "—";
-      $("emailOut").textContent  = state.email ? state.email : "—";
-      $("phoneOut").textContent  = state.phone ? state.phone : "—";
-      $("addrOut").textContent   = state.address ? state.address : "—";
-
-      $("ivaPctOut").textContent = `${state.vat}%`;
-      $("fxOut").textContent = Number(state.fx||0).toFixed(2);
-      $("validityOut").textContent = state.validity;
-
-      const tbody = $("lines");
-      tbody.innerHTML = "";
-
+    // ======= Cantidad sin brincar cursor =======
+    function quickTotals() {
       let subUsd = 0;
       const missing = [];
 
-      state.lines.forEach((ln, idx) => {
+      for (const ln of state.lines) {
         const code = normalizeCode(ln.code);
         const qty = Number(ln.qty || 0);
+        if (!code) continue;
 
-        const item = (window.CATALOG||{})[code];
         const price = priceFor(code, state.list);
-        const desc = descFor(code);
+        if (price === null || price === undefined) missing.push(code);
 
-        if (!code || !item) missing.push(code || "(vacío)");
-        if (item && (price === null || price === undefined)) missing.push(code + " (sin precio)");
+        subUsd += (price ?? 0) * qty;
+      }
 
-        const lineSub = (price ?? 0) * qty;
-        subUsd += lineSub;
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><input data-field="code" data-idx="${idx}" value="${escapeHtml(code)}" placeholder="Código" oninput="onCode(${idx}, this.value)" /></td>
-          <td class="muted">${escapeHtml(desc || "—")}</td>
-          <td class="right">${price == null ? "—" : moneyUsd(price)}</td>
-          <td class="right"><input data-field="qty" data-idx="${idx}" type="number" min="0" step="1" value="${qty}" oninput="onQty(${idx}, this.value)" /></td>
-          <td class="right">${moneyUsd(lineSub)}</td>
-          <td class="right no-print">
-            <button class="secondary" onclick="removeLine(${idx})" style="padding:6px 10px; font-weight:800;">X</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      const discPct = 0; // ya no usamos descuento
       const totalUsd = subUsd;
-
-      const subMxn = totalUsd * Number(state.fx||0);
-      const iva = subMxn * (Number(state.vat||0)/100);
+      const subMxn = totalUsd * Number(state.fx || 0);
+      const iva = subMxn * (Number(state.vat || 0) / 100);
       const totalMxn = subMxn + iva;
 
       $("subUsd").textContent = moneyUsd(subUsd);
@@ -376,56 +464,141 @@
 
       const uniq = [...new Set(missing.filter(Boolean))];
       showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
-
-      // Regresar foco después de re-render
-      if (focusInfo) {
-        const el = document.querySelector(
-          `input[data-field="${focusInfo.field}"][data-idx="${focusInfo.idx}"]`
-        );
-        if (el) {
-          el.focus();
-          if (focusInfo.start != null && focusInfo.end != null && el.setSelectionRange) {
-            el.setSelectionRange(focusInfo.start, focusInfo.end);
-          }
-        }
-      }
     }
 
-    window.onCode = (idx, val) => { state.lines[idx].code = normalizeCode(val); render(); };
-    window.onQty  = (idx, val) => { state.lines[idx].qty = Number(val || 0); render(); };
-    window.removeLine = (idx) => {
-      state.lines.splice(idx,1);
-      if (!state.lines.length) state.lines.push({code:"",qty:1});
-      render();
-    };
+    window.onCode = (idx, val) => { state.lines[idx].code = String(val||""); render(); };
 
+    // Live: no render (no brinca cursor)
+    window.onQtyLive = (idx, val) => { state.lines[idx].qty = Number(val || 0); quickTotals(); };
+
+    // Final: render al salir
+    window.onQty  = (idx, val) => { state.lines[idx].qty = Number(val || 0); render(); };
+
+    function render(){
+      // Asegura consecutivo
+      if (!state.quoteNo) state.quoteNo = formatQuoteNo(nextQuoteNo());
+
+      // Header derecha
+      $("today").textContent = new Date().toLocaleDateString("es-MX");
+      $("quoteNo").textContent = state.quoteNo;
+      $("validityOut").textContent = state.validity;
+      $("vatOut").textContent = String(state.vat) + "%";
+      $("fxOut").textContent = Number(state.fx || 0).toFixed(2);
+
+      // Datos cliente/vendedor derecha
+      $("clientOut").textContent = state.client ? state.client : "—";
+      $("sellerOut").textContent = state.seller ? state.seller : "—";
+      $("emailOut").textContent  = state.email  ? state.email  : "—";
+      $("phoneOut").textContent  = state.phone  ? state.phone  : "—";
+      $("addrOut").textContent   = state.address ? state.address : "—";
+
+      // Tabla
+      const tbody = $("lines");
+      tbody.innerHTML = "";
+
+      const missing = [];
+      let subUsd = 0;
+
+      state.lines.forEach((ln, idx) => {
+        const rawCode = String(ln.code || "");
+        const code = normalizeCode(rawCode);
+        const qty = Number(ln.qty || 0);
+
+        const desc = descFor(code);
+        const price = code ? priceFor(code, state.list) : null;
+
+        if (code && !window.CATALOG[code]) missing.push(code);
+        if (code && (price === null || price === undefined)) missing.push(code + " (sin precio)");
+
+        const lineSub = (price ?? 0) * qty;
+        subUsd += lineSub;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>
+            <input data-field="code" data-idx="${idx}" value="${escapeHtml(rawCode)}"
+              placeholder="Código" oninput="onCode(${idx}, this.value)" />
+          </td>
+          <td class="muted">${escapeHtml(desc || "—")}</td>
+          <td class="right">${price == null ? "—" : moneyUsd(price)}</td>
+          <td class="right">
+            <input data-field="qty" data-idx="${idx}"
+              type="number" min="0" step="1" value="${qty}"
+              oninput="onQtyLive(${idx}, this.value)"
+              onblur="onQty(${idx}, this.value)"
+            />
+          </td>
+          <td class="right">${moneyUsd(lineSub)}</td>
+          <td class="right no-print">
+            <button class="secondary" onclick="removeLine(${idx})" style="padding:6px 10px; font-weight:900;">X</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const totalUsd = subUsd;
+      const subMxn = totalUsd * Number(state.fx || 0);
+      const iva = subMxn * (Number(state.vat || 0) / 100);
+      const totalMxn = subMxn + iva;
+
+      $("subUsd").textContent = moneyUsd(subUsd);
+      $("totalUsd").textContent = moneyUsd(totalUsd);
+      $("subMxn").textContent = money(subMxn);
+      $("ivaMxn").textContent = money(iva);
+      $("totalMxn").textContent = money(totalMxn);
+
+      const uniq = [...new Set(missing.filter(Boolean))];
+      showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
+    }
+
+    function escapeHtml(str){
+      return String(str||"").replace(/[&<>"']/g, (m) => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[m]));
+    }
+
+    // Eventos UI
     $("priceList").addEventListener("change", e => { state.list = e.target.value; render(); });
     $("vatMode").addEventListener("change", e => { state.vat = Number(e.target.value||0); render(); });
     $("fx").addEventListener("input", e => { state.fx = Number(e.target.value||0); render(); });
 
     $("clientName").addEventListener("input", e => { state.client = e.target.value; render(); });
     $("sellerName").addEventListener("input", e => { state.seller = e.target.value; render(); });
-    $("email").addEventListener("input", e => { state.email = e.target.value; render(); });
-    $("phone").addEventListener("input", e => { state.phone = e.target.value; render(); });
+    $("clientEmail").addEventListener("input", e => { state.email = e.target.value; render(); });
+    $("clientPhone").addEventListener("input", e => { state.phone = e.target.value; render(); });
     $("clientAddress").addEventListener("input", e => { state.address = e.target.value; render(); });
 
     $("validity").addEventListener("change", e => { state.validity = e.target.value; render(); });
 
-    $("addRowBtn").addEventListener("click", () => { state.lines.push({code:"",qty:1}); render(); });
-    $("clearBtn").addEventListener("click", () => {
-      state.client=""; state.seller=""; state.email=""; state.phone=""; state.address="";
-      state.fx=18.77; state.list="4"; state.vat=16; state.validity="3 días";
-      state.lines=[{code:"",qty:1}];
+    $("addRowBtn").addEventListener("click", () => {
+      state.lines.push({code:"", qty:1});
+      render();
+    });
 
-      $("priceList").value="4";
-      $("vatMode").value="16";
-      $("fx").value="18.77";
-      $("validity").value="3 días";
-      $("clientName").value="";
-      $("sellerName").value="";
-      $("email").value="";
-      $("phone").value="";
-      $("clientAddress").value="";
+    $("clearBtn").addEventListener("click", () => {
+      state.client = "";
+      state.seller = "";
+      state.email = "";
+      state.phone = "";
+      state.address = "";
+      state.fx = 18.77;
+      state.vat = 16;
+      state.list = "4";
+      state.validity = "3 días";
+      state.lines = [{code:"", qty:1}];
+
+      // Nueva cotización
+      state.quoteNo = formatQuoteNo(nextQuoteNo());
+
+      $("priceList").value = "4";
+      $("vatMode").value = "16";
+      $("fx").value = "18.77";
+      $("validity").value = "3 días";
+      $("clientName").value = "";
+      $("sellerName").value = "";
+      $("clientEmail").value = "";
+      $("clientPhone").value = "";
+      $("clientAddress").value = "";
       render();
     });
 
