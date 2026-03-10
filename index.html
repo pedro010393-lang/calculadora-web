@@ -499,7 +499,7 @@ Object.entries(window.CLIENTS).forEach(([code, data]) => {
   option.value = code + " - " + data.name;
   clientsList.appendChild(option);
 });
-  $("clientNo").addEventListener("change", () => {
+ $("clientNo").addEventListener("change", () => {
   let raw = $("clientNo").value.trim();
 
   if (raw.includes(" - ")) {
@@ -511,8 +511,33 @@ Object.entries(window.CLIENTS).forEach(([code, data]) => {
 
   if (!c) return;
 
+  // actualiza estado real
+  state.clientNo = raw;
+  state.client = c.name;
+  state.list = String(c.list);
+
+  // actualiza campos visibles
   $("clientName").value = c.name;
-  $("priceListLabel").value = "Lista " + c.list;
+  $("priceList").value = String(c.list);
+
+  // si tienes estos campos, intenta llenarlos
+  const priceListLabel = document.getElementById("priceListLabel");
+  if (priceListLabel) {
+    priceListLabel.value = c.list === "450" ? "Lista 450" : "Lista " + c.list;
+  }
+
+  const ruleOut = document.getElementById("ruleOut");
+  if (ruleOut) {
+    ruleOut.value = c.list === "450"
+      ? "Usa Lista 450 / Lista 450 Especial"
+      : "Usa Precio Especial si existe; si no, Lista " + c.list;
+  }
+
+  render();
+});
+
+$("clientNo").addEventListener("blur", () => {
+  $("clientNo").dispatchEvent(new Event("change"));
 });
 $("vatMode").value = String(state.vat);
 $("fx").value = String(state.fx);
