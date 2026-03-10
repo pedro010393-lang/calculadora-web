@@ -67,7 +67,8 @@
       <div class="row">
         <div>
           <label>Número de cliente</label>
-          <input id="clientNo" placeholder="Ej. 10302 o 450" inputmode="numeric" />
+          <input id="clientNo" list="clientsList" placeholder="Ej. 10302 o HALOS" />
+<datalist id="clientsList"></datalist>
         </div>
         <div>
           <label>Lista asignada</label>
@@ -491,7 +492,13 @@ $("clearBtn").addEventListener("click", () => {
 });
 
 $("printBtn").addEventListener("click", () => window.print());
+const clientsList = document.getElementById("clientsList");
 
+Object.entries(window.CLIENTS).forEach(([code, data]) => {
+  const option = document.createElement("option");
+  option.value = code + " - " + data.name;
+  clientsList.appendChild(option);
+});
 $("vatMode").value = String(state.vat);
 $("fx").value = String(state.fx);
 $("validity").value = state.validity;
