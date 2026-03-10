@@ -499,6 +499,21 @@ Object.entries(window.CLIENTS).forEach(([code, data]) => {
   option.value = code + " - " + data.name;
   clientsList.appendChild(option);
 });
+  $("clientNo").addEventListener("change", () => {
+  let raw = $("clientNo").value.trim();
+
+  if (raw.includes(" - ")) {
+    raw = raw.split(" - ")[0].trim();
+    $("clientNo").value = raw;
+  }
+
+  const c = window.CLIENTS[raw];
+
+  if (!c) return;
+
+  $("clientName").value = c.name;
+  $("priceListLabel").value = "Lista " + c.list;
+});
 $("vatMode").value = String(state.vat);
 $("fx").value = String(state.fx);
 $("validity").value = state.validity;
