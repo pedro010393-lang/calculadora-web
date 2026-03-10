@@ -3,209 +3,82 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cotizador Tishman</title>
-
+  <title>Cotizador Tishman Pro</title>
   <style>
     :root{
-      --b:#e5e7eb;
-      --t:#111827;
-      --m:#6b7280;
-      --bg:#f7f7f8;
-      --card:#ffffff;
-      --shadow: 0 6px 20px rgba(0,0,0,.06);
-      --radius:16px;
+      --b:#e5e7eb; --t:#111827; --m:#6b7280; --bg:#f7f7f8; --card:#ffffff;
+      --shadow: 0 6px 20px rgba(0,0,0,.06); --radius:16px; --accent:#111827;
     }
     *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family:-apple-system, system-ui, Segoe UI, Roboto, Arial;
-      background:var(--bg);
-      color:var(--t);
-    }
-
-    .wrap{
-      max-width:1200px;
-      margin:0 auto;
-      padding:16px;
-      display:grid;
-      grid-template-columns: 420px 1fr;
-      gap:14px;
-      align-items:start;
-    }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--b);
-      border-radius:var(--radius);
-      padding:14px;
-      box-shadow:var(--shadow);
-    }
-
-    h1{ margin:0 0 6px; font-size:20px; }
-    .sub{ color:var(--m); font-weight:600; margin-bottom:14px; }
-
-    label{ font-size:12px; color:var(--m); display:block; margin:10px 0 6px; font-weight:600; }
+    body{ margin:0; font-family:-apple-system,system-ui,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--t); }
+    .wrap{ max-width:1260px; margin:0 auto; padding:16px; display:grid; grid-template-columns: 440px 1fr; gap:14px; align-items:start; }
+    .card{ background:var(--card); border:1px solid var(--b); border-radius:var(--radius); padding:14px; box-shadow:var(--shadow); }
+    h1{ margin:0 0 6px; font-size:20px; } .sub{ color:var(--m); font-weight:600; margin-bottom:14px; }
+    label{ font-size:12px; color:var(--m); display:block; margin:10px 0 6px; font-weight:700; letter-spacing:.2px; }
     input, select, textarea{
-      width:100%;
-      padding:10px;
-      border:1px solid var(--b);
-      border-radius:12px;
-      font-size:14px;
-      outline:none;
-      background:#fff;
+      width:100%; padding:10px; border:1px solid var(--b); border-radius:12px;
+      font-size:14px; outline:none; background:#fff;
     }
+    input[readonly], textarea[readonly]{ background:#f9fafb; color:#374151; }
     textarea{ min-height:76px; resize:vertical; }
-
     .row{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-
     .btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
-    button{
-      border:1px solid var(--b);
-      background:#111827;
-      color:#fff;
-      padding:10px 12px;
-      border-radius:12px;
-      font-weight:800;
-      cursor:pointer;
-    }
-    button.secondary{
-      background:#fff;
-      color:#111827;
-    }
-    button:active{ transform:scale(.99); }
-
+    button{ border:1px solid var(--b); background:var(--accent); color:#fff; padding:10px 12px; border-radius:12px; font-weight:800; cursor:pointer; }
+    button.secondary{ background:#fff; color:#111827; }
     .tip{ margin-top:10px; color:var(--m); font-size:12px; }
-
-    /* ======= Cotización (derecha) ======= */
-    .quoteHeader{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:10px;
+    .quoteHeader{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
+    .brand{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+    .brand img{ height:70px; width:auto; display:block; }
+    .logoFallback{
+      font-weight:1000; letter-spacing:.8px; border:2px solid #111827; border-radius:12px; padding:10px 14px; font-size:20px;
     }
-    .brand{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      align-items:flex-start;
-    }
-    .brand img{
-      height:70px;
-      width:auto;
-      display:block;
-    }
-    .small{ font-size:13px; color:var(--m); font-weight:700; }
-    .hr{ height:1px; background:var(--b); margin:12px 0; }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:8px;
-    }
-    th{
-      text-align:left;
-      font-size:12px;
-      color:var(--m);
-      padding:10px 8px;
-      border-bottom:1px solid var(--b);
-    }
-    td{
-      padding:10px 8px;
-      border-bottom:1px solid #f1f5f9;
-      vertical-align:top;
-    }
-    .right{ text-align:right; }
-    .muted{ color:var(--m); font-weight:700; }
-    .pill{
-      display:inline-flex;
-      gap:6px;
-      align-items:center;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--b);
-      color:var(--m);
-      font-size:12px;
-      font-weight:800;
-      background:#fff;
-    }
-
-    .totalsGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top:14px;
-    }
-    .totalsBox{
-      border:1px dashed var(--b);
-      border-radius:14px;
-      padding:12px;
-      background:#fff;
-    }
-    .totalsTitle{
-      font-size:12px;
-      color:var(--m);
-      font-weight:900;
-      letter-spacing:.5px;
-      margin-bottom:10px;
-    }
-    .line{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin:6px 0;
-    }
-    .grand{
-      margin-top:8px;
-      font-size:20px;
-      font-weight:1000;
-    }
-
-    .warn{
-      margin-top:12px;
-      background:#fff5f5;
-      border:1px solid #fecaca;
-      color:#991b1b;
-      border-radius:12px;
-      padding:10px 12px;
-      font-weight:800;
-    }
-
-    /* ========= IMPRESIÓN =========
-       - Ocultar captura (izquierda)
-       - Imprimir SOLO cotización (derecha)
-       - Ocultar botones/alertas
-    */
+    .small{ font-size:13px; color:var(--m); font-weight:700; } .hr{ height:1px; background:var(--b); margin:12px 0; }
+    table{ width:100%; border-collapse:collapse; margin-top:8px; }
+    th{ text-align:left; font-size:12px; color:var(--m); padding:10px 8px; border-bottom:1px solid var(--b); }
+    td{ padding:10px 8px; border-bottom:1px solid #f1f5f9; vertical-align:top; }
+    .right{ text-align:right; } .muted{ color:var(--m); font-weight:700; }
+    .pill{ display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid var(--b); color:var(--m); font-size:12px; font-weight:800; background:#fff; }
+    .totalsGrid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:14px; }
+    .totalsBox{ border:1px dashed var(--b); border-radius:14px; padding:12px; background:#fff; }
+    .totalsTitle{ font-size:12px; color:var(--m); font-weight:900; letter-spacing:.5px; margin-bottom:10px; }
+    .line{ display:flex; justify-content:space-between; align-items:center; margin:6px 0; }
+    .grand{ margin-top:8px; font-size:20px; font-weight:1000; }
+    .warn{ margin-top:12px; background:#fff5f5; border:1px solid #fecaca; color:#991b1b; border-radius:12px; padding:10px 12px; font-weight:800; }
+    .ok{ margin-top:12px; background:#eff6ff; border:1px solid #bfdbfe; color:#1d4ed8; border-radius:12px; padding:10px 12px; font-weight:800; }
+    .lockedHint{ font-size:12px; color:#6b7280; margin-top:8px; }
     @media print {
       body{ background:#fff; }
-      .wrap{ grid-template-columns: 1fr; padding:0; margin:0; }
-      .captureCol{ display:none !important; }
-      .no-print{ display:none !important; }
+      .wrap{ grid-template-columns:1fr; padding:0; margin:0; }
+      .captureCol,.no-print{ display:none !important; }
       .card{ box-shadow:none; border:none; border-radius:0; padding:0; }
       .quoteCol{ padding:0; margin:0; }
       .totalsBox{ border:1px solid #e5e7eb; }
     }
   </style>
-
-  <!-- TU CATÁLOGO -->
-  <script src="catalog.js"></script>
+  <script src="catalog_v2.js"></script>
+  <script src="clients.js"></script>
 </head>
-
 <body>
   <div class="wrap">
-    <!-- ============ IZQUIERDA: CAPTURA (NO IMPRIME) ============ -->
     <div class="card captureCol">
-      <h1>Cotizador</h1>
-      <div class="sub">Captura códigos, cantidades y genera PDF</div>
+      <h1>Cotizador Tishman</h1>
+      <div class="sub">Captura cliente, bloquea lista y genera PDF</div>
 
       <div class="row">
         <div>
-          <label>Lista del cliente</label>
-          <select id="priceList">
-            <option value="4">Lista 4</option>
-            <option value="5">Lista 5</option>
-            <option value="6">Lista 6</option>
-          </select>
+          <label>Número de cliente</label>
+          <input id="clientNo" placeholder="Ej. 10302 o 450" inputmode="numeric" />
+        </div>
+        <div>
+          <label>Lista asignada</label>
+          <input id="priceListLabel" readonly placeholder="Se asigna automáticamente" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Nombre del cliente</label>
+          <input id="clientName" readonly placeholder="Se llena automáticamente" />
         </div>
         <div>
           <label>IVA</label>
@@ -222,8 +95,8 @@
           <input id="sellerName" placeholder="Nombre del vendedor" />
         </div>
         <div>
-          <label>Cliente</label>
-          <input id="clientName" placeholder="Nombre del cliente" />
+          <label>Tipo de cambio (USD→MXN)</label>
+          <input id="fx" type="number" step="0.01" min="0" />
         </div>
       </div>
 
@@ -243,10 +116,6 @@
 
       <div class="row">
         <div>
-          <label>Tipo de cambio (USD→MXN)</label>
-          <input id="fx" type="number" step="0.01" min="0" />
-        </div>
-        <div>
           <label>Vigencia (días)</label>
           <select id="validity">
             <option>1 día</option>
@@ -254,6 +123,10 @@
             <option>7 días</option>
             <option>15 días</option>
           </select>
+        </div>
+        <div>
+          <label>Regla activa</label>
+          <input id="ruleOut" readonly placeholder="Esperando cliente" />
         </div>
       </div>
 
@@ -263,19 +136,19 @@
         <button id="printBtn">Imprimir / Guardar PDF</button>
       </div>
 
-      <div class="tip">Nota: si un código tiene precio especial, se usa ese primero.</div>
-
+      <div class="lockedHint">La lista se asigna por número de cliente. El vendedor no la puede cambiar.</div>
+      <div class="tip">Reglas: listas 4/5/6 usan precio especial si existe. El cliente 450 usa Lista 450 o Lista 450 Precio Especial.</div>
       <div id="warning" class="warn no-print" style="display:none;"></div>
+      <div id="info" class="ok no-print" style="display:none;"></div>
     </div>
 
-    <!-- ============ DERECHA: COTIZACIÓN (SÍ IMPRIME) ============ -->
     <div class="card quoteCol">
       <div class="quoteHeader">
         <div class="brand">
-          <img src="Logo Tishman Color-SF.png" alt="Logo" onerror="this.style.display='none'">
+          <img src="Logo Tishman Color-SF.png" alt="Logo Tishman" onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block';">
+          <div id="logoFallback" class="logoFallback" style="display:none;">TISHMAN</div>
           <div class="small">Cotización</div>
         </div>
-
         <div style="text-align:right">
           <div class="small"><b>Fecha:</b> <span id="today"></span></div>
           <div class="small"><b>Cotización:</b> <span id="quoteNo"></span></div>
@@ -286,6 +159,17 @@
       <div class="hr"></div>
 
       <div class="row">
+        <div>
+          <div class="small muted">No. cliente</div>
+          <div style="font-weight:900" id="clientNoOut">—</div>
+        </div>
+        <div>
+          <div class="small muted">Lista aplicada</div>
+          <div style="font-weight:900" id="listOut">—</div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
         <div>
           <div class="small muted">Cliente</div>
           <div style="font-weight:900" id="clientOut">—</div>
@@ -342,7 +226,6 @@
           <div class="line"><span class="muted">Subtotal</span><span id="subUsd">$0.00</span></div>
           <div class="line"><span class="muted">Total</span><span id="totalUsd">$0.00</span></div>
         </div>
-
         <div class="totalsBox">
           <div class="totalsTitle">TOTALES MXN</div>
           <div class="line"><span class="muted">Subtotal</span><span id="subMxn">$0.00</span></div>
@@ -356,271 +239,263 @@
     </div>
   </div>
 
-  <script>
-    // Helpers DOM
-    const $ = (id) => document.getElementById(id);
+<script>
+const $ = (id) => document.getElementById(id);
+const fmtUsd = new Intl.NumberFormat("en-US", { style:"currency", currency:"USD", minimumFractionDigits:2, maximumFractionDigits:2 });
+const fmtMxn = new Intl.NumberFormat("es-MX", { style:"currency", currency:"MXN", minimumFractionDigits:2, maximumFractionDigits:2 });
+const moneyUsd = (n) => fmtUsd.format(Number(n||0));
+const money = (n) => fmtMxn.format(Number(n||0));
+function normalizeCode(s){ return String(s||"").trim().toUpperCase(); }
+function normalizeClientNo(s){ return String(s||"").replace(/\s+/g,"").trim(); }
+function escapeHtml(str){ return String(str||"").replace(/[&<>"']/g, (m) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m])); }
 
-    // Formatos dinero
-    const fmtUsd = new Intl.NumberFormat("en-US", { style:"currency", currency:"USD", minimumFractionDigits:2, maximumFractionDigits:2 });
-    const fmtMxn = new Intl.NumberFormat("es-MX", { style:"currency", currency:"MXN", minimumFractionDigits:2, maximumFractionDigits:2 });
-    const moneyUsd = (n) => fmtUsd.format(Number(n||0));
-    const money    = (n) => fmtMxn.format(Number(n||0));
+function nextQuoteNo() {
+  const key = "tishman_quote_seq";
+  const last = Number(localStorage.getItem(key) || 0);
+  const next = last + 1;
+  localStorage.setItem(key, String(next));
+  return next;
+}
+function formatQuoteNo(n){ return "COT-" + String(n).padStart(6, "0"); }
 
-    // Normalizar códigos: sin espacios, en mayúsculas
-    function normalizeCode(s){
-      return String(s||"").trim().toUpperCase();
-    }
-
-    // === Consecutivo de cotización ===
-    function nextQuoteNo() {
-      const key = "tishman_quote_seq";
-      const last = Number(localStorage.getItem(key) || 0);
-      const next = last + 1;
-      localStorage.setItem(key, String(next));
-      return next;
-    }
-    function formatQuoteNo(n){
-      return "COT-" + String(n).padStart(6, "0");
-    }
-
-    // Estado
-    const state = {
-      list: "4",
-      vat: 16,
-      fx: 18.77,
-      validity: "3 días",
-      client: "",
-      seller: "",
-      email: "",
-      phone: "",
-      address: "",
-      quoteNo: "",
-      lines: [{ code:"", qty:1 }]
-    };
-
-    // Seguridad: si falta catálogo
-    if (!window.CATALOG) window.CATALOG = {};
-
-    function descFor(code){
-      const item = window.CATALOG[code];
-      return item ? (item.desc || "") : "";
-    }
-
-    // Precio: usa el de tu catalog.js (ya trae prioridad precio especial)
-    function priceFor(code, list){
-      const item = window.CATALOG[code];
-      if (!item) return null;
-
-      // Prioridad: precio especial (tu catálogo lo maneja como priceE o specialPrice según versión)
-      const special = (item.priceE ?? item.specialPrice);
-      if (special !== null && special !== undefined && String(special) !== "") return Number(special);
-
-      if (list === "4") return item.price4 ?? null;
-      if (list === "5") return item.price5 ?? null;
-      if (list === "6") return item.price6 ?? null;
-      return null;
-    }
-
-    function showWarning(msg){
-      const box = $("warning");
-      if (!msg) { box.style.display="none"; box.textContent=""; return; }
-      box.style.display="block";
-      box.textContent = msg;
-    }
-
-    function removeLine(idx){
-      state.lines.splice(idx,1);
-      if (!state.lines.length) state.lines.push({code:"", qty:1});
-      render();
-    }
-    window.removeLine = removeLine;
-
-    // ======= Cantidad sin brincar cursor =======
-    function quickTotals() {
-      let subUsd = 0;
-      const missing = [];
-
-      for (const ln of state.lines) {
-        const code = normalizeCode(ln.code);
-        const qty = Number(ln.qty || 0);
-        if (!code) continue;
-
-        const price = priceFor(code, state.list);
-        if (price === null || price === undefined) missing.push(code);
-
-        subUsd += (price ?? 0) * qty;
-      }
-
-      const totalUsd = subUsd;
-      const subMxn = totalUsd * Number(state.fx || 0);
-      const iva = subMxn * (Number(state.vat || 0) / 100);
-      const totalMxn = subMxn + iva;
-
-      $("subUsd").textContent = moneyUsd(subUsd);
-      $("totalUsd").textContent = moneyUsd(totalUsd);
-      $("subMxn").textContent = money(subMxn);
-      $("ivaMxn").textContent = money(iva);
-      $("totalMxn").textContent = money(totalMxn);
-
-      const uniq = [...new Set(missing.filter(Boolean))];
-      showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
-    }
-
-
-    // Live: no render (no brinca cursor)
-    window.onQtyLive = (idx, val) => { state.lines[idx].qty = Number(val || 0); quickTotals(); };
-
-    // Final: render al salir
-    window.onQty  = (idx, val) => { state.lines[idx].qty = Number(val || 0); render(); };
-// escritura fluida del código
-window.onCodeLive = (idx, val) => {
-  state.lines[idx].code = String(val || "");
-  quickTotals();
+const state = {
+  vat: 16, fx: 18.77, validity: "3 días",
+  clientNo: "", client: "", list: "", seller: "", email: "", phone: "", address: "",
+  quoteNo: "", lines: [{ code:"", qty:1 }]
 };
 
-// render completo al salir del campo
-window.onCode = (idx, val) => {
-  state.lines[idx].code = String(val || "");
+if (!window.CATALOG) window.CATALOG = {};
+if (!window.CLIENTS) window.CLIENTS = {};
+
+function descFor(code){
+  const item = window.CATALOG[code];
+  return item ? (item.desc || "") : "";
+}
+function hasValue(v){
+  return v !== null && v !== undefined && String(v).trim() !== "" && !Number.isNaN(Number(v));
+}
+function getRuleLabel(clientNo, list){
+  if (clientNo === "450" || list === "450") return "Cliente 450 → Lista 450 / Lista 450 Precio Especial";
+  if (list === "4" || list === "5" || list === "6") return `Lista ${list} → usa Precio Especial si existe`;
+  return "Cliente sin lista válida";
+}
+function priceFor(code){
+  const item = window.CATALOG[code];
+  if (!item || !state.list) return null;
+
+  const is450 = state.clientNo === "450" || state.list === "450";
+  if (is450) {
+    if (hasValue(item.price450E) && Number(item.price450E) > 0) return Number(item.price450E);
+    if (hasValue(item.price450) && Number(item.price450) > 0) return Number(item.price450);
+    return null;
+  }
+
+  if (hasValue(item.priceE) && Number(item.priceE) > 0) return Number(item.priceE);
+  if (state.list === "4" && hasValue(item.price4)) return Number(item.price4);
+  if (state.list === "5" && hasValue(item.price5)) return Number(item.price5);
+  if (state.list === "6" && hasValue(item.price6)) return Number(item.price6);
+  return null;
+}
+
+function showWarning(msg){
+  const box = $("warning");
+  if (!msg) { box.style.display="none"; box.textContent=""; return; }
+  box.style.display="block"; box.textContent = msg;
+}
+function showInfo(msg){
+  const box = $("info");
+  if (!msg) { box.style.display="none"; box.textContent=""; return; }
+  box.style.display="block"; box.textContent = msg;
+}
+
+function lookupClient(clientNo){
+  const key = normalizeClientNo(clientNo);
+  if (!key) {
+    state.clientNo = ""; state.client = ""; state.list = "";
+    $("clientName").value = ""; $("priceListLabel").value = ""; $("ruleOut").value = "";
+    return;
+  }
+  const client = window.CLIENTS[key];
+  state.clientNo = key;
+  if (!client) {
+    state.client = ""; state.list = "";
+    $("clientName").value = ""; $("priceListLabel").value = ""; $("ruleOut").value = "";
+    showInfo("");
+    showWarning("Cliente no encontrado. Revisa el número antes de cotizar.");
+    return;
+  }
+  state.client = client.name || "";
+  state.list = String(client.list || "");
+  $("clientName").value = state.client;
+  $("priceListLabel").value = state.list === "450" ? "Lista 450" : `Lista ${state.list}`;
+  $("ruleOut").value = getRuleLabel(key, state.list);
+  showWarning("");
+  showInfo(`Cliente encontrado: ${state.client} · ${$("priceListLabel").value}`);
+}
+
+function removeLine(idx){
+  state.lines.splice(idx,1);
+  if (!state.lines.length) state.lines.push({code:"", qty:1});
   render();
-};
-    function render(){
-      // Asegura consecutivo
-      if (!state.quoteNo) state.quoteNo = formatQuoteNo(nextQuoteNo());
+}
+window.removeLine = removeLine;
 
-      // Header derecha
-      $("today").textContent = new Date().toLocaleDateString("es-MX");
-      $("quoteNo").textContent = state.quoteNo;
-      $("validityOut").textContent = state.validity;
-      $("vatOut").textContent = String(state.vat) + "%";
-      $("fxOut").textContent = Number(state.fx || 0).toFixed(2);
+function quickTotals() {
+  let subUsd = 0;
+  const missing = [];
+  if (state.clientNo && !state.list) missing.push("cliente sin lista válida");
 
-      // Datos cliente/vendedor derecha
-      $("clientOut").textContent = state.client ? state.client : "—";
-      $("sellerOut").textContent = state.seller ? state.seller : "—";
-      $("emailOut").textContent  = state.email  ? state.email  : "—";
-      $("phoneOut").textContent  = state.phone  ? state.phone  : "—";
-      $("addrOut").textContent   = state.address ? state.address : "—";
+  for (const ln of state.lines) {
+    const code = normalizeCode(ln.code);
+    const qty = Number(ln.qty || 0);
+    if (!code) continue;
+    const price = priceFor(code);
+    if (price === null || price === undefined) missing.push(code);
+    subUsd += (price ?? 0) * qty;
+  }
 
-      // Tabla
-      const tbody = $("lines");
-      tbody.innerHTML = "";
+  const totalUsd = subUsd;
+  const subMxn = totalUsd * Number(state.fx || 0);
+  const iva = subMxn * (Number(state.vat || 0) / 100);
+  const totalMxn = subMxn + iva;
 
-      const missing = [];
-      let subUsd = 0;
+  $("subUsd").textContent = moneyUsd(subUsd);
+  $("totalUsd").textContent = moneyUsd(totalUsd);
+  $("subMxn").textContent = money(subMxn);
+  $("ivaMxn").textContent = money(iva);
+  $("totalMxn").textContent = money(totalMxn);
 
-      state.lines.forEach((ln, idx) => {
-        const rawCode = String(ln.code || "");
-        const code = normalizeCode(rawCode);
-        const qty = Number(ln.qty || 0);
+  const uniq = [...new Set(missing.filter(Boolean))];
+  showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
+}
 
-        const desc = descFor(code);
-        const price = code ? priceFor(code, state.list) : null;
+window.onQtyLive = (idx, val) => { state.lines[idx].qty = Number(val || 0); quickTotals(); };
+window.onQty = (idx, val) => { state.lines[idx].qty = Number(val || 0); render(); };
+window.onCodeLive = (idx, val) => { state.lines[idx].code = String(val || ""); quickTotals(); };
+window.onCode = (idx, val) => { state.lines[idx].code = String(val || ""); render(); };
 
-        if (code && !window.CATALOG[code]) missing.push(code);
-        if (code && (price === null || price === undefined)) missing.push(code + " (sin precio)");
+function render(){
+  if (!state.quoteNo) state.quoteNo = formatQuoteNo(nextQuoteNo());
 
-        const lineSub = (price ?? 0) * qty;
-        subUsd += lineSub;
+  $("today").textContent = new Date().toLocaleDateString("es-MX");
+  $("quoteNo").textContent = state.quoteNo;
+  $("validityOut").textContent = state.validity;
+  $("vatOut").textContent = String(state.vat) + "%";
+  $("fxOut").textContent = Number(state.fx || 0).toFixed(2);
 
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>
-            <input data-field="code" data-idx="${idx}" value="${escapeHtml(rawCode)}"
-placeholder="Código"
-oninput="onCodeLive(${idx}, this.value)"
-onblur="onCode(${idx}, this.value)" />
-          </td>
-          <td class="muted">${escapeHtml(desc || "—")}</td>
-          <td class="right">${price == null ? "—" : moneyUsd(price)}</td>
-          <td class="right">
-            <input data-field="qty" data-idx="${idx}"
-              type="number" min="0" step="1" value="${qty}"
-              oninput="onQtyLive(${idx}, this.value)"
-              onblur="onQty(${idx}, this.value)"
-            />
-          </td>
-          <td class="right">${moneyUsd(lineSub)}</td>
-          <td class="right no-print">
-            <button class="secondary" onclick="removeLine(${idx})" style="padding:6px 10px; font-weight:900;">X</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
+  $("clientNoOut").textContent = state.clientNo || "—";
+  $("listOut").textContent = state.list ? (state.list === "450" ? "Lista 450" : `Lista ${state.list}`) : "—";
+  $("clientOut").textContent = state.client || "—";
+  $("sellerOut").textContent = state.seller || "—";
+  $("emailOut").textContent  = state.email || "—";
+  $("phoneOut").textContent  = state.phone || "—";
+  $("addrOut").textContent   = state.address || "—";
 
-      const totalUsd = subUsd;
-      const subMxn = totalUsd * Number(state.fx || 0);
-      const iva = subMxn * (Number(state.vat || 0) / 100);
-      const totalMxn = subMxn + iva;
+  const tbody = $("lines");
+  tbody.innerHTML = "";
 
-      $("subUsd").textContent = moneyUsd(subUsd);
-      $("totalUsd").textContent = moneyUsd(totalUsd);
-      $("subMxn").textContent = money(subMxn);
-      $("ivaMxn").textContent = money(iva);
-      $("totalMxn").textContent = money(totalMxn);
+  const missing = [];
+  let subUsd = 0;
 
-      const uniq = [...new Set(missing.filter(Boolean))];
-      showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
-    }
+  state.lines.forEach((ln, idx) => {
+    const rawCode = String(ln.code || "");
+    const code = normalizeCode(rawCode);
+    const qty = Number(ln.qty || 0);
 
-    function escapeHtml(str){
-      return String(str||"").replace(/[&<>"']/g, (m) => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[m]));
-    }
+    const desc = descFor(code);
+    const price = code ? priceFor(code) : null;
 
-    // Eventos UI
-    $("priceList").addEventListener("change", e => { state.list = e.target.value; render(); });
-    $("vatMode").addEventListener("change", e => { state.vat = Number(e.target.value||0); render(); });
-    $("fx").addEventListener("input", e => { state.fx = Number(e.target.value||0); render(); });
+    if (code && !window.CATALOG[code]) missing.push(code);
+    if (code && (price === null || price === undefined)) missing.push(code + " (sin precio)");
 
-    $("clientName").addEventListener("input", e => { state.client = e.target.value; render(); });
-    $("sellerName").addEventListener("input", e => { state.seller = e.target.value; render(); });
-    $("clientEmail").addEventListener("input", e => { state.email = e.target.value; render(); });
-    $("clientPhone").addEventListener("input", e => { state.phone = e.target.value; render(); });
-    $("clientAddress").addEventListener("input", e => { state.address = e.target.value; render(); });
+    const lineSub = (price ?? 0) * qty;
+    subUsd += lineSub;
 
-    $("validity").addEventListener("change", e => { state.validity = e.target.value; render(); });
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        <input value="${escapeHtml(rawCode)}" placeholder="Código"
+          oninput="onCodeLive(${idx}, this.value)"
+          onblur="onCode(${idx}, this.value)" />
+      </td>
+      <td class="muted">${escapeHtml(desc || "—")}</td>
+      <td class="right">${price == null ? "—" : moneyUsd(price)}</td>
+      <td class="right">
+        <input type="number" min="0" step="1" value="${qty}"
+          oninput="onQtyLive(${idx}, this.value)"
+          onblur="onQty(${idx}, this.value)" />
+      </td>
+      <td class="right">${moneyUsd(lineSub)}</td>
+      <td class="right no-print"><button class="secondary" onclick="removeLine(${idx})" style="padding:6px 10px; font-weight:900;">X</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
 
-    $("addRowBtn").addEventListener("click", () => {
-      state.lines.push({code:"", qty:1});
-      render();
-    });
+  const totalUsd = subUsd;
+  const subMxn = totalUsd * Number(state.fx || 0);
+  const iva = subMxn * (Number(state.vat || 0) / 100);
+  const totalMxn = subMxn + iva;
 
-    $("clearBtn").addEventListener("click", () => {
-      state.client = "";
-      state.seller = "";
-      state.email = "";
-      state.phone = "";
-      state.address = "";
-      state.fx = 18.77;
-      state.vat = 16;
-      state.list = "4";
-      state.validity = "3 días";
-      state.lines = [{code:"", qty:1}];
+  $("subUsd").textContent = moneyUsd(subUsd);
+  $("totalUsd").textContent = moneyUsd(totalUsd);
+  $("subMxn").textContent = money(subMxn);
+  $("ivaMxn").textContent = money(iva);
+  $("totalMxn").textContent = money(totalMxn);
 
-      // Nueva cotización
-      state.quoteNo = formatQuoteNo(nextQuoteNo());
+  const uniq = [...new Set(missing.filter(Boolean))];
+  if (uniq.length) {
+    showWarning("Ojo: códigos/precios no encontrados: " + uniq.join(", "));
+  } else if (!state.clientNo) {
+    showWarning("Primero captura el número de cliente para bloquear la lista correcta.");
+  } else if (!state.list) {
+    showWarning("El cliente no tiene una lista válida asignada.");
+  } else {
+    showWarning("");
+  }
+}
 
-      $("priceList").value = "4";
-      $("vatMode").value = "16";
-      $("fx").value = "18.77";
-      $("validity").value = "3 días";
-      $("clientName").value = "";
-      $("sellerName").value = "";
-      $("clientEmail").value = "";
-      $("clientPhone").value = "";
-      $("clientAddress").value = "";
-      render();
-    });
+$("clientNo").addEventListener("input", e => { lookupClient(e.target.value); render(); });
+$("vatMode").addEventListener("change", e => { state.vat = Number(e.target.value||0); render(); });
+$("fx").addEventListener("input", e => { state.fx = Number(e.target.value||0); render(); });
+$("sellerName").addEventListener("input", e => { state.seller = e.target.value; render(); });
+$("clientEmail").addEventListener("input", e => { state.email = e.target.value; render(); });
+$("clientPhone").addEventListener("input", e => { state.phone = e.target.value; render(); });
+$("clientAddress").addEventListener("input", e => { state.address = e.target.value; render(); });
+$("validity").addEventListener("change", e => { state.validity = e.target.value; render(); });
 
-    $("printBtn").addEventListener("click", () => window.print());
+$("addRowBtn").addEventListener("click", () => {
+  state.lines.push({code:"", qty:1});
+  render();
+});
 
-    // init
-    $("priceList").value = state.list;
-    $("vatMode").value = String(state.vat);
-    $("fx").value = String(state.fx);
-    $("validity").value = state.validity;
-    render();
-  </script>
+$("clearBtn").addEventListener("click", () => {
+  state.clientNo = ""; state.client = ""; state.list = "";
+  state.seller = ""; state.email = ""; state.phone = ""; state.address = "";
+  state.fx = 18.77; state.vat = 16; state.validity = "3 días";
+  state.lines = [{code:"", qty:1}];
+  state.quoteNo = formatQuoteNo(nextQuoteNo());
+
+  $("clientNo").value = "";
+  $("clientName").value = "";
+  $("priceListLabel").value = "";
+  $("ruleOut").value = "";
+  $("vatMode").value = "16";
+  $("fx").value = "18.77";
+  $("validity").value = "3 días";
+  $("sellerName").value = "";
+  $("clientEmail").value = "";
+  $("clientPhone").value = "";
+  $("clientAddress").value = "";
+  showInfo("");
+  render();
+});
+
+$("printBtn").addEventListener("click", () => window.print());
+
+$("vatMode").value = String(state.vat);
+$("fx").value = String(state.fx);
+$("validity").value = state.validity;
+render();
+</script>
 </body>
 </html>
