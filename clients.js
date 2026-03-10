@@ -712,7 +712,7 @@ window.CLIENTS = {
   },
   "10690": {
     "name": "LUMICOLOR EQUIPO ELECTRICO INDUSTRIAL",
-    "list": "None"
+    "list": "4"
   },
   "10672": {
     "name": "PAOLA VANESSA BAEZA CASTRO",
@@ -728,7 +728,7 @@ window.CLIENTS = {
   },
   "10731": {
     "name": "COMERCIALIZADORA MERIGAB",
-    "list": "None"
+    "list": "4"
   },
   "10751": {
     "name": "ELECTRO MAYOREO AHOME",
@@ -744,7 +744,7 @@ window.CLIENTS = {
   },
   "10689": {
     "name": "GRANDEZZA ATTIVA",
-    "list": "None"
+    "list": "4"
   },
   "10814": {
     "name": "COMBUSTION & CONTROL DEL BAJIO",
@@ -772,11 +772,11 @@ window.CLIENTS = {
   },
   "10732": {
     "name": "CARLOS XAVIER ORTUÑO CORTES",
-    "list": "None"
+    "list": "4"
   },
   "10762": {
     "name": "FOCOS Y LAMPARAS MODERNAS",
-    "list": "None"
+    "list": "4"
   },
   "10695": {
     "name": "COMERCIALIZADORA Y PROYECTOS EN ILUMINACION DSC",
@@ -784,7 +784,7 @@ window.CLIENTS = {
   },
   "10737": {
     "name": "SERVICIOS DE ENTREGA DE PAQUETERIA",
-    "list": "None"
+    "list": "4"
   },
   "10748": {
     "name": "RODRIGO JOEL RUBALCAVA CRUZ",
@@ -792,7 +792,7 @@ window.CLIENTS = {
   },
   "10691": {
     "name": "ROBERTO ARTURO CRUZ BARRIOS",
-    "list": "None"
+    "list": "4"
   },
   "10632": {
     "name": "ELECTRO MEL",
@@ -872,7 +872,7 @@ window.CLIENTS = {
   },
   "105035": {
     "name": "SANDRA BEATRIZ GARCIA VIDES",
-    "list": "None"
+    "list": "4"
   },
   "10663": {
     "name": "MAYRA LETICIA FLORES PEÑA",
@@ -880,7 +880,7 @@ window.CLIENTS = {
   },
   "10806": {
     "name": "MARTHA LETICIA MURILLO ROSAS",
-    "list": "None"
+    "list": "4"
   },
   "10834": {
     "name": "ILUMINACION DEL SURESTE",
@@ -960,7 +960,7 @@ window.CLIENTS = {
   },
   "10676": {
     "name": "CLARA PATRICIA HERNANDEZ LOPEZ",
-    "list": "None"
+    "list": "4"
   },
   "2315": {
     "name": "PEBER ILUMINACION, S.A. DE C.V.",
@@ -1056,7 +1056,7 @@ window.CLIENTS = {
   },
   "10590": {
     "name": "OK EN PUBLICIDAD, S.A. DE C.V.",
-    "list": "None"
+    "list": "4"
   },
   "10532": {
     "name": "FERRELECTRICA DE CABORCA",
@@ -1140,11 +1140,11 @@ window.CLIENTS = {
   },
   "10555": {
     "name": "MARCO ANTONIO GERARDO MARTINEZ CUAHONTE",
-    "list": "None"
+    "list": "4"
   },
   "TISH": {
     "name": "TISHMAN LIGHTING UII, S.A. DE C.V.",
-    "list": "None"
+    "list": "4"
   },
   "10838": {
     "name": "MAURICIO OMAR TORRES CARRILLO",
@@ -1172,7 +1172,7 @@ window.CLIENTS = {
   },
   "AMAZON": {
     "name": "RAUL ROCA GUTIERREZ ZAMORA",
-    "list": "None"
+    "list": "4"
   },
   "10520": {
     "name": "ROBERTO ISRAEL OCHOA PEREZ",
@@ -1324,7 +1324,7 @@ window.CLIENTS = {
   },
   "MOSTR": {
     "name": ".",
-    "list": "None"
+    "list": "4"
   },
   "10360": {
     "name": "HECTOR JAVIER CORTES PRUDENCIO",
@@ -1424,7 +1424,7 @@ window.CLIENTS = {
   },
   "10738": {
     "name": "CENTRO ELECTRICO Y DE ILUMINACION DEL MAYAB",
-    "list": "None"
+    "list": "4"
   },
   "10741": {
     "name": "JOSE AUGUSTO CASTILLO GALEANA",
@@ -1492,11 +1492,11 @@ window.CLIENTS = {
   },
   "10761": {
     "name": "OMAR MARTINEZ REYES",
-    "list": "None"
+    "list": "4"
   },
   "10753": {
     "name": "IRASENT GASPAR SANCHEZ",
-    "list": "None"
+    "list": "4"
   },
   "10726": {
     "name": "ROSELYN ELIZABETH ESTRADA SANCHEZ",
@@ -1524,7 +1524,7 @@ window.CLIENTS = {
   },
   "10764": {
     "name": "ALONSO GONZALEZ RODRIGUEZ",
-    "list": "None"
+    "list": "4"
   },
   "10710": {
     "name": "ELISEO GARCIA CORONA",
@@ -1544,7 +1544,7 @@ window.CLIENTS = {
   },
   "10728": {
     "name": "COMERCIAL KAINU",
-    "list": "None"
+    "list": "4"
   },
   "10754": {
     "name": "DOUBLE AXIS",
@@ -1584,7 +1584,7 @@ window.CLIENTS = {
   },
   "105034": {
     "name": "CESAR ULISES RODRIGUEZ RAMOS",
-    "list": "None"
+    "list": "4"
   },
   "10808": {
     "name": "DANIEL ROJAS MARTINEZ",
@@ -1592,7 +1592,7 @@ window.CLIENTS = {
   },
   "10763": {
     "name": "LUMICOLOR MATERIAL ELECTRICO",
-    "list": "None"
+    "list": "4"
   },
   "10740": {
     "name": "KAAREM JANIN PAEZ COTERA",
@@ -1600,7 +1600,7 @@ window.CLIENTS = {
   },
   "10713": {
     "name": "JUANA GONZALEZ VAZQUEZ",
-    "list": "None"
+    "list": "4"
   },
   "10719": {
     "name": "RAGNAR FERNANDO ARIAS MORALES",
@@ -1608,15 +1608,15 @@ window.CLIENTS = {
   },
   "10760": {
     "name": "EIMELECTRICO",
-    "list": "None"
+    "list": "4"
   },
   "10798": {
     "name": "TECNO LUX ILUMINACION Y EQUIPOS",
-    "list": "None"
+    "list": "4"
   },
   "10759": {
     "name": "ALAN JOSIAS VILLEGAS MEDINA",
-    "list": "None"
+    "list": "4"
   },
   "10709": {
     "name": "JOSE ALFREDO JIMENEZ TORRES",
@@ -1624,7 +1624,7 @@ window.CLIENTS = {
   },
   "10757": {
     "name": "RAULIN MATERIAL ELECTRICO",
-    "list": "None"
+    "list": "4"
   },
   "10720": {
     "name": "OSCAR HUITLAC HERNANDEZ AYALA",
@@ -1636,15 +1636,15 @@ window.CLIENTS = {
   },
   "10800": {
     "name": "COMERCIALIZADORA GAUCO",
-    "list": "None"
+    "list": "4"
   },
   "10750": {
     "name": "NANCY MONTSERRAT CERVANTES ROBLEDOS",
-    "list": "None"
+    "list": "4"
   },
   "10765": {
     "name": "JESUS PEÑA PANDURO",
-    "list": "None"
+    "list": "4"
   },
   "10802": {
     "name": "IMPULSORA ELECTRICA Y PLOMERIA DE ENSENADA",
@@ -1692,7 +1692,7 @@ window.CLIENTS = {
   },
   "10819": {
     "name": "ELECTRIMAS DISTRIBUCION Y PROYECTOS",
-    "list": "None"
+    "list": "4"
   },
   "10820": {
     "name": "HUGO ALBERTO ELIZALDE MORALES",
@@ -1716,7 +1716,7 @@ window.CLIENTS = {
   },
   "10843": {
     "name": "MARIELA ALVAREZ MONTEJO",
-    "list": "None"
+    "list": "4"
   },
   "10725": {
     "name": "FERRETERIA INDUSTRIAL EL AGUILA",
@@ -1832,11 +1832,11 @@ window.CLIENTS = {
   },
   "10842": {
     "name": "DISTRIBUIDORA ELECTRICA MAVISA",
-    "list": "None"
+    "list": "4"
   },
   "MERCADO L": {
     "name": "CORPORACION INTERAMERICANA DE LOGISTICA",
-    "list": "None"
+    "list": "4"
   },
   "10866": {
     "name": "VICTOR HUGO MENDEZ ROJAS",
