@@ -499,42 +499,21 @@ Object.entries(window.CLIENTS).forEach(([code, data]) => {
   option.value = code + " - " + data.name;
   clientsList.appendChild(option);
 });
- $("clientNo").addEventListener("change", () => {
-  let raw = $("clientNo").value.trim();
+function normalizeClientSuggestion() {
+  const input = $("clientNo");
+  let raw = input.value.trim();
 
-  if (raw.includes(" - ")) {
-    raw = raw.split(" - ")[0].trim();
-    $("clientNo").value = raw;
-  }
+  if (!raw.includes(" - ")) return;
 
-  const c = window.CLIENTS[raw];
+  const code = raw.split(" - ")[0].trim();
+  input.value = code;
 
-  if (!c) return;
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.dispatchEvent(new Event("change", { bubbles: true }));
+}
 
-  // actualiza estado real
-  state.clientNo = raw;
-  state.client = c.name;
-  state.list = String(c.list);
-
-  // actualiza campos visibles
-  $("clientName").value = c.name;
-  $("priceList").value = String(c.list);
-
-  // si tienes estos campos, intenta llenarlos
-  const priceListLabel = document.getElementById("priceListLabel");
-  if (priceListLabel) {
-    priceListLabel.value = c.list === "450" ? "Lista 450" : "Lista " + c.list;
-  }
-
-  const ruleOut = document.getElementById("ruleOut");
-  if (ruleOut) {
-    ruleOut.value = c.list === "450"
-      ? "Usa Lista 450 / Lista 450 Especial"
-      : "Usa Precio Especial si existe; si no, Lista " + c.list;
-  }
-
-  render();
-});
+$("clientNo").addEventListener("input", normalizeClientSuggestion);
+$("clientNo").addEventListener("change", normalizeClientSuggestion);
 
 $("clientNo").addEventListener("blur", () => {
   $("clientNo").dispatchEvent(new Event("change"));
