@@ -444,9 +444,9 @@ function render(){
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>
-        <input value="${escapeHtml(rawCode)}" placeholder="Código"
-          oninput="onCodeLive(${idx}, this.value)"
-          onblur="onCode(${idx}, this.value)" />
+        <input value="${escapeHtml(rawCode)}" placeholder="Código o descripción" list="productsList"
+  oninput="onCodeLive(${idx}, this.value)"
+  onblur="onCode(${idx}, this.value)" />
       </td>
       <td class="muted">${escapeHtml(desc || "—")}</td>
       <td class="right">${price == null ? "—" : moneyUsd(price)}</td>
@@ -545,6 +545,13 @@ Object.entries(window.CLIENTS).forEach(([code, data]) => {
   option.value = code + " - " + data.name;
   clientsList.appendChild(option);
 });
+  const productsList = document.getElementById("productsList");
+
+Object.entries(window.CATALOG).forEach(([code, data]) => {
+  const option = document.createElement("option");
+  option.value = code + " - " + (data.desc || "");
+  productsList.appendChild(option);
+});
 function normalizeClientSuggestion() {
   const input = $("clientNo");
   let raw = input.value.trim();
@@ -569,5 +576,6 @@ $("fx").value = String(state.fx);
 $("validity").value = state.validity;
 render();
 </script>
+  <datalist id="productsList"></datalist>
 </body>
 </html>
