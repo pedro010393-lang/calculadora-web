@@ -54,6 +54,35 @@
       .quoteCol{ padding:0; margin:0; }
       .totalsBox{ border:1px solid #e5e7eb; }
     }
+    @media print {
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 8px 6px;
+    vertical-align: top;
+    font-size: 11px;
+  }
+
+  td:first-child {
+    word-break: break-word;
+    white-space: normal;
+    max-width: 120px;
+  }
+
+  td:nth-child(2) {
+    word-break: break-word;
+    white-space: normal;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+}
   </style>
   <script src="catalog_v2.js"></script>
   <script src="clients.js"></script>
