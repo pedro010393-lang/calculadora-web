@@ -508,7 +508,7 @@ window.CLIENTS = {
   },
   "2172": {
     "name": "PAULINA SANCHEZ GALVEZ",
-    "list": "5"
+    "list": "6"
   },
   "2192": {
     "name": "JOSE ROGELIO GARCIA MADRIGAL",
