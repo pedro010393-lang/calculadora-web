@@ -520,7 +520,24 @@ $("clearBtn").addEventListener("click", () => {
   render();
 });
 
-$("printBtn").addEventListener("click", () => window.print());
+$("printBtn").addEventListener("click", () => {
+
+  const client = ($("clientName").value || "COTIZACION")
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "_");
+
+  const originalTitle = document.title;
+
+  document.title = client;
+
+  window.print();
+
+  setTimeout(() => {
+    document.title = originalTitle;
+  }, 1000);
+
+});
 const clientsList = document.getElementById("clientsList");
 
 Object.entries(window.CLIENTS).forEach(([code, data]) => {
