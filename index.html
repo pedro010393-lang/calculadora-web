@@ -399,11 +399,29 @@ function quickTotals() {
   showWarning(uniq.length ? ("Ojo: códigos/precios no encontrados: " + uniq.join(", ")) : "");
 }
 
-window.onQtyLive = (idx, val) => { state.lines[idx].qty = Number(val || 0); quickTotals(); };
-window.onQty = (idx, val) => { state.lines[idx].qty = Number(val || 0); render(); };
-window.onCodeLive = (idx, val) => { state.lines[idx].code = String(val || ""); quickTotals(); };
-window.onCode = (idx, val) => { state.lines[idx].code = String(val || ""); render(); };
+window.onQtyLive = (idx, val) => {
+  state.lines[idx].qty = Number(val || 0);
+  quickTotals();
+};
 
+window.onQty = (idx, val) => {
+  state.lines[idx].qty = Number(val || 0);
+  render();
+};
+
+window.onCodeLive = (idx, val) => {
+  let clean = String(val || "").trim();
+  if (clean.includes(" - ")) clean = clean.split(" - ")[0].trim();
+  state.lines[idx].code = clean;
+  quickTotals();
+};
+
+window.onCode = (idx, val) => {
+  let clean = String(val || "").trim();
+  if (clean.includes(" - ")) clean = clean.split(" - ")[0].trim();
+  state.lines[idx].code = clean;
+  render();
+};
 function render(){
   if (!state.quoteNo) state.quoteNo = formatQuoteNo(nextQuoteNo());
 
@@ -484,7 +502,7 @@ function render(){
   }
 }
 
-$("clientNo").addEventListener("input", e => { lookupClient(e.target.value); render(); });
+
 $("vatMode").addEventListener("change", e => { state.vat = Number(e.target.value||0); render(); });
 $("fx").addEventListener("input", e => { state.fx = Number(e.target.value||0); render(); });
 $("sellerName").addEventListener("input", e => { state.seller = e.target.value; render(); });
@@ -545,32 +563,31 @@ Object.entries(window.CLIENTS).forEach(([code, data]) => {
   option.value = code + " - " + data.name;
   clientsList.appendChild(option);
 });
-  const productsList = document.getElementById("productsList");
+
+const productsList = document.getElementById("productsList");
 
 Object.entries(window.CATALOG).forEach(([code, data]) => {
   const option = document.createElement("option");
   option.value = code + " - " + (data.desc || "");
   productsList.appendChild(option);
 });
-function normalizeClientSuggestion() {
+
+function applyClientInput() {
   const input = $("clientNo");
-  let raw = input.value.trim();
+  let raw = String(input.value || "").trim();
 
-  if (!raw.includes(" - ")) return;
+  if (raw.includes(" - ")) {
+    raw = raw.split(" - ")[0].trim();
+    input.value = raw;
+  }
 
-  const code = raw.split(" - ")[0].trim();
-  input.value = code;
-
-  input.dispatchEvent(new Event("input", { bubbles: true }));
-  input.dispatchEvent(new Event("change", { bubbles: true }));
+  lookupClient(raw);
+  render();
 }
 
-$("clientNo").addEventListener("input", normalizeClientSuggestion);
-$("clientNo").addEventListener("change", normalizeClientSuggestion);
-
-$("clientNo").addEventListener("blur", () => {
-  $("clientNo").dispatchEvent(new Event("change"));
-});
+$("clientNo").addEventListener("input", applyClientInput);
+$("clientNo").addEventListener("change", applyClientInput);
+$("clientNo").addEventListener("blur", applyClientInput);
 $("vatMode").value = String(state.vat);
 $("fx").value = String(state.fx);
 $("validity").value = state.validity;
