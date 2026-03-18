@@ -712,7 +712,7 @@ window.CLIENTS = {
   },
   "10690": {
     "name": "LUMICOLOR EQUIPO ELECTRICO INDUSTRIAL",
-    "list": "4"
+    "list": "5"
   },
   "10672": {
     "name": "PAOLA VANESSA BAEZA CASTRO",
@@ -1592,7 +1592,7 @@ window.CLIENTS = {
   },
   "10763": {
     "name": "LUMICOLOR MATERIAL ELECTRICO",
-    "list": "4"
+    "list": "5"
   },
   "10740": {
     "name": "KAAREM JANIN PAEZ COTERA",
