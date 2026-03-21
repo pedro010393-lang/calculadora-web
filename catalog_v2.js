@@ -964,11 +964,11 @@ window.CATALOG = {
   },
   "TIREF500S": {
     "desc": "REFLECTOR LED 500 W, 3 CCT 100-277 V~",
-    "listPrice": null,
-    "price4": 0,
-    "price5": 0,
-    "price6": 0,
-    "priceE": "",
+    "listPrice": 140.83,
+    "price4": 83.85,
+    "price5": 79.65,
+    "price6": 75.67,
+    "priceE": 71.88,
     "price450": "",
     "price450E": ""
   },
