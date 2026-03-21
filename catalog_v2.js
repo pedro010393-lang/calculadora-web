@@ -1611,7 +1611,7 @@ window.CATALOG = {
     "priceE": "",
     "price450": 29.583780586433846,
     "price450E": 0
-  }
+  },
   "TLFLD1030": {
   "desc": "REFLECTOR LED 10W 100-240V 3000K",
   "listPrice": 5.7,
