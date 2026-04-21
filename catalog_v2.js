@@ -1592,7 +1592,7 @@ window.CATALOG = {
     "price450": 23.747773886266348,
     "price450E": 20.833333333333332
   },
-  "TLCRV": {
+    "TLCRV": {
     "desc": "CONTROL REMOTO",
     "listPrice": 37.6,
     "price4": 22.387040000000002,
@@ -1613,23 +1613,36 @@ window.CATALOG = {
     "price450E": 0
   },
   "TLFLD1030": {
-  "desc": "REFLECTOR LED 10W 100-240V 3000K",
-  "listPrice": 5.7,
-  "price4": 3.39,
-  "price5": 3.22,
-  "price6": 3.06,
-  "priceE": 3.93,
-  "price450": null,
-  "price450E": null
-},
-"TLFLD1065": {
-  "desc": "REFLECTOR LED 10W 100-240V 6500K",
-  "listPrice": 5.7,
-  "price4": 3.39,
-  "price5": 3.22,
-  "price6": 3.06,
-  "priceE": 3.93,
-  "price450": null,
-  "price450E": null
-},
+    "desc": "REFLECTOR LED 10W 100-240V 3000K",
+    "listPrice": 5.7,
+    "price4": 3.39,
+    "price5": 3.22,
+    "price6": 3.06,
+    "priceE": 3.93,
+    "price450": null,
+    "price450E": null
+  },
+  "TLFLD1065": {
+    "desc": "REFLECTOR LED 10W 100-240V 6500K",
+    "listPrice": 5.7,
+    "price4": 3.39,
+    "price5": 3.22,
+    "price6": 3.06,
+    "priceE": 3.93,
+    "price450": null,
+    "price450E": null
+  }
 };
+
+function roundCatalogPrices(catalog) {
+  Object.keys(catalog).forEach(code => {
+    Object.keys(catalog[code]).forEach(key => {
+      const value = catalog[code][key];
+      if (typeof value === "number") {
+        catalog[code][key] = Number(value.toFixed(2));
+      }
+    });
+  });
+}
+
+roundCatalogPrices(window.CATALOG);
