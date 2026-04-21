@@ -1869,7 +1869,7 @@ window.CLIENTS = {
   "10865": {
     "name": "MARIELA YANET NUÑEZ CANTO",
     "list": "5"
-  }
+  },
   "10872": {
   "name": "DANIEL SALGADO GOMEZ",
   "list": "4"
