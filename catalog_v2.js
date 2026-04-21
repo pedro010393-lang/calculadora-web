@@ -1632,6 +1632,28 @@ window.CATALOG = {
     "price450": null,
     "price450E": null
   }
+   "TLCAN118": {
+    "desc": "CANALETA 1xG13",
+    "listPrice": 2.98,
+    "price4": 1.77,
+    "price5": 1.69,
+    "price6": 1.60,
+    "priceE": 1.43,
+    "price450": 1.69,
+    "price450E": null
+  },
+  "TLCAN218": {
+    "desc": "CANALETA 2xG13",
+    "listPrice": 3.37,
+    "price4": 2.01,
+    "price5": 1.91,
+    "price6": 1.81,
+    "priceE": 1.58,
+    "price450": 1.91,
+    "price450E": null
+  }
+
+}
 };
 
 function roundCatalogPrices(catalog) {
