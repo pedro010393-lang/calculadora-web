@@ -644,12 +644,12 @@ window.CATALOG = {
   },
   "TIHB200SW": {
     "desc": "HIGHBAY LED 3 POTENCIAS, 3 CCT, 100-277 V ~",
-    "listPrice": 0,
-    "price4": 0,
-    "price5": 0,
-    "price6": 0,
+    "listPrice": 88.97,
+    "price4": 52.97,
+    "price5": 50.32,
+    "price6": 47.80,
     "priceE": "",
-    "price450": "",
+    "price450": "50.32",
     "price450E": ""
   },
   "TIBRF2": {
