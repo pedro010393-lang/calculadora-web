@@ -674,12 +674,12 @@ window.CATALOG = {
   },
   "TIHB101520SWA": {
     "desc": "HIGHBAY LED 3 POTENCIAS, 3 CCT, 3 ANGULOS 100-277 V ~",
-    "listPrice": 0,
-    "price4": 0,
-    "price5": 0,
-    "price6": 0,
+    "listPrice": 125.87,
+    "price4": 52.97,
+    "price5": 50.32,
+    "price6": 47.8,
     "priceE": "",
-    "price450": "",
+    "price450": "50.32",
     "price450E": ""
   },
   "TIBRH2": {
