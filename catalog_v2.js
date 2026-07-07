@@ -238,9 +238,9 @@ window.CATALOG = {
     "price4": 4.572672,
     "price5": 4.343808,
     "price6": 4.1264639999999995,
-    "priceE": 3.715670436187399,
+    "priceE": ,
     "price450": 4.345722627353,
-    "price450E": 3.8333333333333335
+    "price450E": 
   },
   "TLT83665OPV": {
     "desc": "LAMP. T8 Fa8 2.40 MTS OPAL. VIDRIO",
@@ -248,9 +248,9 @@ window.CATALOG = {
     "price4": 4.572672,
     "price5": 4.343808,
     "price6": 4.1264639999999995,
-    "priceE": 3.715670436187399,
+    "priceE": ,
     "price450": 4.345722627353,
-    "price450E": 3.8333333333333335
+    "price450E": 
   },
   "TLDL12B": {
     "desc": "DOWNLIGHT 148MM BCO. 120°   ",
