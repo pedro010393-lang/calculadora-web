@@ -1478,7 +1478,7 @@ window.CATALOG = {
     "price4": 157.3,
     "price5": 149.43,
     "price6": 141.95,
-    "priceE": 134.86,
+    "priceE": "",
     "price450": 249.43,
     "price450E": 134.86
   },
@@ -1508,7 +1508,7 @@ window.CATALOG = {
     "price4": 157.3,
     "price5": 149.43,
     "price6": 141.95,
-    "priceE": "134.86",
+    "priceE": "",
     "price450": 126.2715793708535,
     "price450E": 0
   },
