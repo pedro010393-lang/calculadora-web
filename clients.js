@@ -1874,7 +1874,7 @@ window.CLIENTS = {
     "name": "DANIEL SALGADO GOMEZ",
     "list": "5"
   },
-  "007": {
+  "004": {
     "name": "CLIENTE NUEVO",
     "list": "4"
   },
@@ -1885,5 +1885,89 @@ window.CLIENTS = {
   "005": {
     "name": "CLIENTE NUEVO",
     "list": "5"
+  },
+  "10868": {
+    "name": "ISAIAS LOPEZ ZAPATA",
+    "list": "4"
+  },
+  "10869": {
+    "name": "EGLO PENINSULAR",
+    "list": "4"
+  },
+  "10870": {
+    "name": "MARCO ANTONIO NIEVES ZAPATA",
+    "list": "5"
+  },
+  "10871": {
+    "name": "ROSA ESTELA DE LA CRUZ MARTINEZ",
+    "list": "4"
+  },
+  "10873": {
+    "name": "RUBEN GARCIA ALLENDE",
+    "list": "4"
+  },
+  "10874": {
+    "name": "ALBERTO FLORES JIMENEZ",
+    "list": "6"
+  },
+  "10875": {
+    "name": "HECTOR RAMON CABRERA QUINTERO",
+    "list": "4"
+  },
+  "10876": {
+    "name": "MISCELANEA ELECTRICA BAJIO",
+    "list": "4"
+  },
+  "10877": {
+    "name": "FIDELIA CANDELARIA CORDOVA CABRERA",
+    "list": "4"
+  },
+  "10878": {
+    "name": "GASTELUM Y GASTELUM ELECTRICIDAD",
+    "list": "5"
+  },
+  "10879": {
+    "name": "COMERCIALIZADORA ELECTRICA ALP",
+    "list": "4"
+  },
+  "10880": {
+    "name": "CONSTRUCCIONES ESPECIALIZADAS 2000 OCD",
+    "list": "4"
+  },
+  "10881": {
+    "name": "FERREILUMINACION MEXICO",
+    "list": "4"
+  },
+  "10882": {
+    "name": "ALGORITMO AUTOMATIZACION",
+    "list": "4"
+  },
+  "10883": {
+    "name": "NADIA DEL CARMEN GUTIERREZ MENA",
+    "list": "5"
+  },
+  "10884": {
+    "name": "VALVULAS CONTROLES Y SERVICIOS",
+    "list": "4"
+  },
+  "10885": {
+    "name": "EL SURTIDOR DE PLOMERIA Y ELECTRICIDAD",
+    "list": "4"
+  },
+  "10886": {
+    "name": "JORGE PERALTA CASILLAS",
+    "list": "4"
+  },
+  "10887": {
+    "name": "JULIA CABRERA GOMEZ",
+    "list": "4"
+  },
+  "10888": {
+    "name": "ULTRA LIGTH ELECTRICA",
+    "list": "4"
+  },
+  "10889": {
+    "name": "ROSA MONTELONGO LEDEZMA",
+    "list": "4"
   }
 };
