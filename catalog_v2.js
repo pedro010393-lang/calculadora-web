@@ -633,7 +633,7 @@ window.CATALOG = {
     "price450E": ""
   },
   "TIHB200S": {
-    "desc": "HIGH BAY 150W 3CCT 100-277V",
+    "desc": "HIGH BAY 200W 3CCT 100-277V",
     "listPrice": 65.12,
     "price4": 38.77,
     "price5": 36.83,
