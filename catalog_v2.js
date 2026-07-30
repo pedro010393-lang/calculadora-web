@@ -1651,6 +1651,16 @@ window.CATALOG = {
     "priceE": 1.58,
     "price450": 1.91,
     "price450E": null
+  },
+    "TL810AH": {
+    "desc": "LYNX EMP. RED. PISO 1XGU10",
+    "listPrice": 12.81,
+    "price4": 7.63,
+    "price5": 7.25,
+    "price6": 6.88,
+    "priceE": null,
+    "price450": null,
+    "price450E": null
   }
 
 
