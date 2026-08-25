@@ -694,20 +694,20 @@ window.CATALOG = {
   },
   "TISE": {
     "desc": "SENSOR",
-    "listPrice": 0,
-    "price4": 0,
-    "price5": 0,
-    "price6": 0,
+    "listPrice": 20.07,
+    "price4": 11.95,
+    "price5": 11.35,
+    "price6": 10.78,
     "priceE": "",
     "price450": "",
     "price450E": ""
   },
   "TIRM": {
     "desc": "CONTROL",
-    "listPrice": 0,
-    "price4": 0,
-    "price5": 0,
-    "price6": 0,
+    "listPrice": 71.61,
+    "price4": 42.64,
+    "price5": 40.50,
+    "price6": 38.48,
     "priceE": "",
     "price450": "",
     "price450E": ""
