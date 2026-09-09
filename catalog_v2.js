@@ -1662,7 +1662,7 @@ window.CATALOG = {
     "priceE": null,
     "price450": null,
     "price450E": null
-  }
+  },
 "TILINCAPW": {
   "desc": "KIT TAPA BLANCA TILIN",
   "listPrice": 0.37,
@@ -1672,7 +1672,7 @@ window.CATALOG = {
   "priceE": null,
   "price450": null,
   "price450E": null
-
+}
 };
 
 function roundCatalogPrices(catalog) {
