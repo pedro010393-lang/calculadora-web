@@ -1672,7 +1672,6 @@ window.CATALOG = {
   "priceE": null,
   "price450": null,
   "price450E": null
-}
 
 };
 
