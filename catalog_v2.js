@@ -1652,6 +1652,7 @@ window.CATALOG = {
     "price450": 1.91,
     "price450E": null
   },
+  
     "TL810AH": {
     "desc": "LYNX EMP. RED. PISO 1XGU10",
     "listPrice": 12.81,
@@ -1662,7 +1663,16 @@ window.CATALOG = {
     "price450": null,
     "price450E": null
   }
-
+"TILINCAPW": {
+  "desc": "KIT TAPA BLANCA TILIN",
+  "listPrice": 0.37,
+  "price4": 0.22,
+  "price5": 0.21,
+  "price6": 0.20,
+  "priceE": null,
+  "price450": null,
+  "price450E": null
+}
 
 };
 
